@@ -1,6 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 54. Navbar Structure */
+/*　Tailwind CSSの機能を使用しており、カスタムコンポーネントクラスを定義しています。*/
+@layer components {
+  .container {
+    /*
+    mx-auto`: 水平方向の余白を自動で設定し、要素を中央揃えにします。
+    max-w-6xl`: 最大幅を `72rem`（1152px）に設定します。
+    xl:max-w-7xl`: 画面幅が `xl` ブレークポイント以上の場合、最大幅を `80rem`（1280px）に設定します。
+    px-8`: 左右のパディングを `2rem`（32px）に設定します。*/
+    @apply mx-auto　max-w-6xl xl:max-w-7xl px-8;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

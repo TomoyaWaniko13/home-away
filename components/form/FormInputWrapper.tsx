@@ -1,9 +1,9 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-// 63. FormInput Component
+// 63. FormInputWrapper Component
 
-type FormInputProps = {
+type Props = {
   // これは入力フィールドの識別子として使用されます。
   // HTMLの<input>要素のname属性として設定されます。
   // フォームデータの送信時やJavaScriptでフォームを操作する際に、このnameを使って特定の入力フィールドを参照します。
@@ -19,7 +19,7 @@ type FormInputProps = {
 };
 
 // form を再利用するための component です。
-const FormInput = (props: FormInputProps) => {
+const FormInputWrapper = (props: Props) => {
   const { name, type, label, defaultValue, placeholder } = props;
 
   return (
@@ -39,4 +39,4 @@ const FormInput = (props: FormInputProps) => {
   );
 };
 
-export default FormInput;
+export default FormInputWrapper;

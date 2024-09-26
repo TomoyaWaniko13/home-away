@@ -10,6 +10,8 @@ type Props = {
 };
 
 const SubmitButtonWrapper = ({ className = "", text = "submit" }: Props) => {
+  // The useFormStatus Hook provides status information of the last form submission.
+  // must be rendered within a <form>.
   // pending が true の場合、フォームは現在送信中または処理中です。
   // pending が falseの場合、フォームは送信中ではありません。
   const { pending } = useFormStatus();

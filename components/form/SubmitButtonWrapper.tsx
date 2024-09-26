@@ -1,3 +1,5 @@
+"use client";
+
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";

@@ -10,9 +10,11 @@ import { redirect } from "next/navigation";
 // 75. Modify Create Profile Page
 
 const CreateProfilePage = async () => {
+  // currentUser() について:
+  // https://clerk.com/docs/references/nextjs/current-user
   const user = await currentUser();
-
   if (user?.privateMetadata?.hasProfile) redirect("/");
+
   return (
     <section>
       <h1 className={"text-2xl font-semibold mb-8 capitalize"}>new user</h1>

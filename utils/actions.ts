@@ -117,6 +117,7 @@ export const fetchProfile = async () => {
 };
 
 // 76. Fetch User Profile
+// 78. Zod SafeParse Method
 
 // form の submit の時に実行される server action です。
 export const updateProfileAction = async (
@@ -130,15 +131,18 @@ export const updateProfileAction = async (
     // a list of key-value pairs into an object.
     const rawData = Object.fromEntries(formData);
 
-    const validatedFields: {
-      firstName: string;
-      lastName: string;
-      username: string;
-    } = profileSchema.parse(rawData);
+    const validatedFields = profileSchema.safeParse(rawData);
+
+    console.log(validatedFields);
+
+    if (!validatedFields.success) {
+      const errors = validatedFields.error.errors.map((error) => error.message);
+      throw new Error(errors.join(","));
+    }
 
     await db.profile.update({
       where: { clerkId: user.id },
-      data: validatedFields,
+      data: validatedFields.data,
     });
 
     // https://nextjs.org/docs/app/api-reference/functions/revalidatePath

@@ -2,7 +2,7 @@
 
 import db from "@/utils/db";
 import { createClerkClient, currentUser } from "@clerk/nextjs/server";
-import { profileSchema } from "@/utils/schemas";
+import { profileSchema, validateWithZodSchema } from "@/utils/schemas";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -54,7 +54,7 @@ export const createProfileAction = async (
     if (!user) throw new Error("Please login to create a profile");
 
     const rawData = Object.fromEntries(formData);
-    const validatedFields = profileSchema.parse(rawData);
+    const validatedFields = validateWithZodSchema(profileSchema, rawData);
 
     await db.profile.create({
       data: {
@@ -118,6 +118,7 @@ export const fetchProfile = async () => {
 
 // 76. Fetch User Profile
 // 78. Zod SafeParse Method
+// 79. ValidateWithZodSchema - Helper Function
 
 // form の submit の時に実行される server action です。
 export const updateProfileAction = async (
@@ -131,18 +132,11 @@ export const updateProfileAction = async (
     // a list of key-value pairs into an object.
     const rawData = Object.fromEntries(formData);
 
-    const validatedFields = profileSchema.safeParse(rawData);
-
-    console.log(validatedFields);
-
-    if (!validatedFields.success) {
-      const errors = validatedFields.error.errors.map((error) => error.message);
-      throw new Error(errors.join(","));
-    }
+    const validatedFields = validateWithZodSchema(profileSchema, rawData);
 
     await db.profile.update({
       where: { clerkId: user.id },
-      data: validatedFields.data,
+      data: validatedFields,
     });
 
     // https://nextjs.org/docs/app/api-reference/functions/revalidatePath

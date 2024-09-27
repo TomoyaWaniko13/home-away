@@ -10,8 +10,9 @@ import { redirect } from "next/navigation";
 // 75. Modify Create Profile Page
 
 const CreateProfilePage = async () => {
-  // currentUser() について:
   // https://clerk.com/docs/references/nextjs/current-user
+  // The currentUser helper returns the Backend User object of the currently active user.
+  // It can be used in Server Components, Route Handlers, and Server Actions.
   const user = await currentUser();
   if (user?.privateMetadata?.hasProfile) redirect("/");
 

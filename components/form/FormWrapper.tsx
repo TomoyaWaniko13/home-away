@@ -19,6 +19,7 @@ type Props = {
 // action（フォームの送信時に実行される関数）と
 // children （コンポーネントの子要素）を Props として受け取ります。
 const FormWrapper = ({ action, children }: Props) => {
+  // ここで、formAction は FormData オブジェクトを自動的に作成し、それを action 関数に渡します。
   const [state, formAction] = useFormState(action, initialState);
   const { toast } = useToast();
 

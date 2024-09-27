@@ -16,8 +16,8 @@ type Props = {
   placeholder?: string;
 };
 
-// form の <Label/> と <Input/> のペアは再利用されるので、
-// FormInputWrapper を使います。
+// form の <Label/> と <Input/> のペアは何度も使われるので、
+// FormInputWrapper を使って再利用できるようにします。
 const FormInputWrapper = (props: Props) => {
   const { name, type, label, defaultValue, placeholder } = props;
 

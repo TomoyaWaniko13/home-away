@@ -2,11 +2,17 @@ import FormWrapper from "@/components/form/FormWrapper";
 import FormInputWrapper from "@/components/form/FormInputWrapper";
 import SubmitButtonWrapper from "@/components/form/SubmitButtonWrapper";
 import { createProfileAction } from "@/utils/actions";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 // 62. Create Profile - Setup
 // 66. Refactor Create Profile
+// 75. Modify Create Profile Page
 
-const CreateProfilePage = () => {
+const CreateProfilePage = async () => {
+  const user = await currentUser();
+
+  if (user?.privateMetadata?.hasProfile) redirect("/");
   return (
     <section>
       <h1 className={"text-2xl font-semibold mb-8 capitalize"}>new user</h1>

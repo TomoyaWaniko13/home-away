@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
-import db from "@/utils/db";
-import { createClerkClient, currentUser } from "@clerk/nextjs/server";
-import { profileSchema, validateWithZodSchema } from "@/utils/schemas";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import db from '@/utils/db';
+import { createClerkClient, currentUser } from '@clerk/nextjs/server';
+import { profileSchema, validateWithZodSchema } from '@/utils/schemas';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 // 73. Create Profile Model and createProfileAction
 const clerkClient = createClerkClient({
@@ -19,13 +19,13 @@ const getAuthUser = async () => {
   // It can be used in Server Components, Route Handlers, and Server Actions.
   const user = await currentUser();
 
-  if (!user) throw new Error("You must be logged in to access this route");
+  if (!user) throw new Error('You must be logged in to access this route');
 
   // https://clerk.com/docs/users/metadata#private-metadata
   // Private metadata is only accessible by the backend, which makes
   // this useful for storing sensitive data that you don't want to expose to the frontend.
   // For example, you could store a user's Stripe customer ID.
-  if (!user.privateMetadata.hasProfile) redirect("/profile/create");
+  if (!user.privateMetadata.hasProfile) redirect('/profile/create');
 
   return user;
 };
@@ -33,25 +33,20 @@ const getAuthUser = async () => {
 // 77. Update Profile Page
 const renderError = (error: unknown): { message: string } => {
   console.log(error);
-  return {
-    message: error instanceof Error ? error.message : "An error occurred",
-  };
+  return { message: error instanceof Error ? error.message : 'An error occurred' };
 };
 
 // 67. Zod Library
 // 73. Create Profile Model and createProfileAction
 
 // form の submit の時に実行される server action です。
-export const createProfileAction = async (
-  prevState: any,
-  formData: FormData,
-) => {
+export const createProfileAction = async (prevState: any, formData: FormData) => {
   try {
     // currentUser() について:
     // https://clerk.com/docs/references/nextjs/current-user
     const user = await currentUser();
 
-    if (!user) throw new Error("Please login to create a profile");
+    if (!user) throw new Error('Please login to create a profile');
 
     const rawData = Object.fromEntries(formData);
     const validatedFields = validateWithZodSchema(profileSchema, rawData);
@@ -60,7 +55,7 @@ export const createProfileAction = async (
       data: {
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
-        profileImage: user.imageUrl ?? "",
+        profileImage: user.imageUrl ?? '',
         ...validatedFields,
       },
     });
@@ -82,7 +77,7 @@ export const createProfileAction = async (
     renderError(error);
   }
 
-  redirect("/");
+  redirect('/');
 };
 
 // 74. Fetch Profile Image Action
@@ -110,7 +105,7 @@ export const fetchProfile = async () => {
 
   // Prisma の CRUD は null になる可能性があります。
   // const profile の 上をホバーすればわかります。
-  if (!profile) redirect("/profile/create");
+  if (!profile) redirect('/profile/create');
 
   // profile 情報全てを return します。
   return profile;
@@ -121,10 +116,7 @@ export const fetchProfile = async () => {
 // 79. ValidateWithZodSchema - Helper Function
 
 // form の submit の時に実行される server action です。
-export const updateProfileAction = async (
-  prevState: any,
-  formData: FormData,
-): Promise<{ message: string }> => {
+export const updateProfileAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
   const user = await getAuthUser();
 
   try {
@@ -140,10 +132,15 @@ export const updateProfileAction = async (
     });
 
     // https://nextjs.org/docs/app/api-reference/functions/revalidatePath
-    revalidatePath("/profile");
+    revalidatePath('/profile');
 
-    return { message: "Profile updated successfully" };
+    return { message: 'Profile updated successfully' };
   } catch (error) {
     return renderError(error);
   }
+};
+
+// 81. Image Input Container
+export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  return { message: 'Profile image updated successfully' };
 };

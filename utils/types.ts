@@ -9,7 +9,4 @@
 // 　　　　　　　 <T> は、Promiseが解決（resolve）されたときに返される値の型を指定します。
 // { message: string }: これは、Promiseが解決されたときに返されるオブジェクトの構造を定義しています。
 
-export type actionFunction = (
-  prevState: any,
-  formData: FormData,
-) => Promise<{ message: string }>;
+export type actionFunction = (prevState: any, formData: FormData) => Promise<{ message: string }>;

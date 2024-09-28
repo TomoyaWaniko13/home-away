@@ -1,5 +1,5 @@
 import FormWrapper from '@/components/form/FormWrapper';
-import { fetchProfile, updateProfileAction } from '@/utils/actions';
+import { fetchProfile, updateProfileAction, updateProfileImageAction } from '@/utils/actions';
 import FormInputWrapper from '@/components/form/FormInputWrapper';
 import SubmitButtonWrapper from '@/components/form/SubmitButtonWrapper';
 import ImageInputWrapper from '@/components/form/ImageInputWrapper';
@@ -18,7 +18,7 @@ const ProfilePage = async () => {
         <ImageInputWrapper
           image={profile.profileImage}
           name={profile.username}
-          action={updateProfileAction}
+          action={updateProfileImageAction}
           text={'Update profile Image'}
         />
         <FormWrapper action={updateProfileAction}>

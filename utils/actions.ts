@@ -2,7 +2,7 @@
 
 import db from '@/utils/db';
 import { createClerkClient, currentUser } from '@clerk/nextjs/server';
-import { profileSchema, validateWithZodSchema } from '@/utils/schemas';
+import { imageSchema, profileSchema, validateWithZodSchema } from '@/utils/schemas';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
@@ -141,6 +141,11 @@ export const updateProfileAction = async (prevState: any, formData: FormData): P
 };
 
 // 81. Image Input Container
+// 82. Image Zod Validation
 export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const image = formData.get('image') as File;
+  const validatedFields = validateWithZodSchema(imageSchema, { image });
+  console.log(validatedFields);
+
   return { message: 'Profile image updated successfully' };
 };

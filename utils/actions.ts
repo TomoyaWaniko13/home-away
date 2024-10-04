@@ -5,6 +5,7 @@ import { createClerkClient, currentUser } from '@clerk/nextjs/server';
 import { imageSchema, profileSchema, validateWithZodSchema } from '@/utils/schemas';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { uploadImage } from '@/utils/supabase';
 
 // 73. Create Profile Model and createProfileAction
 const clerkClient = createClerkClient({
@@ -104,7 +105,7 @@ export const fetchProfile = async () => {
   });
 
   // Prisma の CRUD は null になる可能性があります。
-  // const profile の 上をホバーすればわかります。
+  // const profile の上をホバーすればわかります。
   if (!profile) redirect('/profile/create');
 
   // profile 情報全てを return します。
@@ -142,10 +143,22 @@ export const updateProfileAction = async (prevState: any, formData: FormData): P
 
 // 81. Image Input Container
 // 82. Image Zod Validation
+// 85. Update Profile Image Action - Complete
 export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
-  const image = formData.get('image') as File;
-  const validatedFields = validateWithZodSchema(imageSchema, { image });
-  console.log(validatedFields);
+  const user = await getAuthUser();
 
-  return { message: 'Profile image updated successfully' };
+  try {
+    const image = formData.get('image') as File;
+    const validatedFields = validateWithZodSchema(imageSchema, { image });
+    const fullPath: string = await uploadImage(validatedFields.image);
+
+    await db.profile.update({
+      where: { clerkId: user.id },
+      data: { profileImage: fullPath },
+    });
+
+    return { message: 'Profile image updated successfully' };
+  } catch (error) {
+    return renderError(error);
+  }
 };

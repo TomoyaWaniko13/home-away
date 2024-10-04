@@ -15,10 +15,13 @@ const supabase = createClient(url, key);
 // https://supabase.com/docs/guides/storage/uploads/standard-uploads
 // 画像ファイルをSupabaseのストレージにアップロードし、その公開URLを返す機能を提供します。
 // タイムスタンプを使用してファイル名を生成することで、ファイル名の衝突を防いでいます。
+
 export const uploadImage = async (image: File) => {
   const timestamp = Date.now();
+
   // オリジナルのファイル名にタイムスタンプを付加することで、ファイル名の一意性を確保し、名前の衝突を防ぎます。
   const newName = `${timestamp}-${image.name}`;
+
   // { data }: アップロード結果のデータ部分を取得します。成功すればファイルのメタデータが含まれます。
   // newName: アップロード後のファイル名。
   // image: アップロードするファイルオブジェクト。

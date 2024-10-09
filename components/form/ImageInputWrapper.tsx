@@ -15,12 +15,12 @@ type Props = {
   image: string;
   name: string;
   action: formSubmitAction;
-  text: string;
+  buttonText: string;
   children?: ReactNode;
 };
 
 const ImageInputWrapper = (props: Props) => {
-  const { image, name, action, text, children } = props;
+  const { image, name, action, buttonText, children } = props;
   const [isUpdateFormVisible, setUpdateFormVisible] = useState(false);
 
   return (
@@ -31,8 +31,9 @@ const ImageInputWrapper = (props: Props) => {
         <LuUser2 className={'w-24 h-24 bg-primary rounded text-white mb-4'} />
       )}
       <Button variant={'outline'} onClick={() => setUpdateFormVisible((prev) => !prev)}>
-        {text}
+        {buttonText}
       </Button>
+      {/* <Button/> を押すと以下の部分が出現/消失します。 */}
       {isUpdateFormVisible && (
         <FormWrapper formSubmitAction={action}>
           <div className={'max-w-md py-3 flex flex-col gap-3'}>

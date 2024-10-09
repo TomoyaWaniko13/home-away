@@ -34,7 +34,8 @@ const getAuthUser = async () => {
 // 77. Update Profile Page
 const renderError = (error: unknown): { message: string } => {
   console.log(error);
-  return { message: error instanceof Error ? error.message : 'An error occurred' };
+  const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+  return { message: errorMessage };
 };
 
 // 67. Zod Library
@@ -155,8 +156,23 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
     });
 
     revalidatePath('/profile');
-    return { message: 'Profile image updated successfully' };
+    return { messagce: 'Profile image updated successfully' };
   } catch (error) {
     return renderError(error);
   }
+};
+
+// 87. Create Property Page - Setup
+export const createPropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+
+  try {
+    const rawData = Object.fromEntries(formData);
+    const validatedFileds = validateWithZodSchema(profileSchema, rawData);
+    return { message: 'property created' };
+  } catch (error) {
+    return renderError(error);
+  }
+
+  // redirect('/');
 };

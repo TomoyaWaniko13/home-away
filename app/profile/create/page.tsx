@@ -4,6 +4,7 @@ import SubmitButton from '@/components/form/SubmitButton';
 import { createProfileAction } from '@/utils/actions';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
+import CardWrapper from '@/components/CardWrapper';
 
 // 62. Create Profile - Setup
 // 66. Refactor Create Profile
@@ -17,9 +18,9 @@ const CreateProfilePage = async () => {
   if (user?.privateMetadata?.hasProfile) redirect('/');
 
   return (
-    <section>
-      <h1 className={'text-2xl font-semibold pb-8 capitalize'}>new user</h1>
-      <div className={'border p-3 rounded-md max-w-4xl'}>
+    <CardWrapper
+      title={'new user'}
+      content={
         <FormWrapper formSubmitAction={createProfileAction}>
           {/* 縦並びにします。 */}
           <div className={'grid gap-5 pt-4'}>
@@ -29,8 +30,8 @@ const CreateProfilePage = async () => {
           </div>
           <SubmitButton text={'Create Profile'} className={'mt-4'} />
         </FormWrapper>
-      </div>
-    </section>
+      }
+    />
   );
 };
 

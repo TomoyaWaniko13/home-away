@@ -43,14 +43,14 @@ const renderError = (error: unknown): { message: string } => {
 // form の submit の時に実行される server action です。
 export const createProfileAction = async (prevState: any, formData: FormData) => {
   try {
-    // currentUser() について:
+    // The currentUser helper returns the Backend User object of the currently active user.
     // https://clerk.com/docs/references/nextjs/current-user
     const user = await currentUser();
 
     if (!user) throw new Error('Please login to create a profile');
 
-    const rawData = Object.fromEntries(formData);
-    const validatedFields = validateWithZodSchema(profileSchema, rawData);
+    const fields = Object.fromEntries(formData);
+    const validatedFields = validateWithZodSchema(profileSchema, fields);
 
     await db.profile.create({
       data: {
@@ -61,9 +61,6 @@ export const createProfileAction = async (prevState: any, formData: FormData) =>
       },
     });
 
-    console.log(validatedFields);
-    // { firstName: 'TOMOYA', lastName: 'WANIKO', username: 'alligatorfree' }
-
     // updateUserMetadata() について:
     // https://clerk.com/docs/references/backend/user/update-user-metadata
 
@@ -71,9 +68,8 @@ export const createProfileAction = async (prevState: any, formData: FormData) =>
     // Private metadata is only accessible by the backend, which makes
     // this useful for storing sensitive data that you don't want to expose to the frontend.
     // For example, you could store a user's Stripe customer ID.
-    await clerkClient.users.updateUserMetadata(user.id, {
-      privateMetadata: { hasProfile: true },
-    });
+    await clerkClient.users.updateUserMetadata(user.id, { privateMetadata: { hasProfile: true } });
+    //
   } catch (error) {
     renderError(error);
   }

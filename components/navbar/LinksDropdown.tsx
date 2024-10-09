@@ -1,10 +1,4 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { links } from '@/utils/links';
 import Link from 'next/link';
@@ -38,7 +32,6 @@ const LinksDropdown = () => {
             </SignUpButton>
           </DropdownMenuItem>
         </SignedOut>
-
         <SignedIn>
           {links.map((link) => {
             return (

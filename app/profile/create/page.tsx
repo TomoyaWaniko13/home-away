@@ -1,9 +1,9 @@
-import FormWrapper from "@/components/form/FormWrapper";
-import FormInputWrapper from "@/components/form/FormInputWrapper";
-import SubmitButtonWrapper from "@/components/form/SubmitButtonWrapper";
-import { createProfileAction } from "@/utils/actions";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import FormWrapper from '@/components/form/FormWrapper';
+import FormInput from '@/components/form/FormInput';
+import SubmitButton from '@/components/form/SubmitButton';
+import { createProfileAction } from '@/utils/actions';
+import { currentUser } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
 // 62. Create Profile - Setup
 // 66. Refactor Create Profile
@@ -14,32 +14,20 @@ const CreateProfilePage = async () => {
   // The currentUser helper returns the Backend User object of the currently active user.
   // It can be used in Server Components, Route Handlers, and Server Actions.
   const user = await currentUser();
-  if (user?.privateMetadata?.hasProfile) redirect("/");
+  if (user?.privateMetadata?.hasProfile) redirect('/');
 
   return (
     <section>
-      <h1 className={"text-2xl font-semibold mb-8 capitalize"}>new user</h1>
-      <div className={"border p-4 rounded-md max-w-lg"}>
-        <FormWrapper action={createProfileAction}>
+      <h1 className={'text-2xl font-semibold pb-8 capitalize'}>new user</h1>
+      <div className={'border p-3 rounded-md max-w-4xl'}>
+        <FormWrapper formSubmitAction={createProfileAction}>
           {/* 縦並びにします。 */}
-          <div className={"grid gap-4 mt-4"}>
-            <FormInputWrapper
-              type={"text"}
-              name={"firstName"}
-              label={"First Name"}
-            />
-            <FormInputWrapper
-              type={"text"}
-              name={"lastName"}
-              label={"Last Name"}
-            />
-            <FormInputWrapper
-              type={"text"}
-              name={"username"}
-              label={"Username"}
-            />
+          <div className={'grid gap-5 pt-4'}>
+            <FormInput inputType={'text'} name={'firstName'} label={'First Name'} />
+            <FormInput inputType={'text'} name={'lastName'} label={'Last Name'} />
+            <FormInput inputType={'text'} name={'username'} label={'Username'} />
           </div>
-          <SubmitButtonWrapper text={"Create Profile"} className={"mt-8"} />
+          <SubmitButton text={'Create Profile'} className={'mt-4'} />
         </FormWrapper>
       </div>
     </section>

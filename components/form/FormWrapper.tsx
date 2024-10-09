@@ -1,26 +1,25 @@
-"use client";
+'use client';
 
-import { actionFunction } from "@/utils/types";
-import { ReactNode, useEffect } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { useFormState } from "react-dom";
+import { formSubmitAction } from '@/utils/types';
+import { ReactNode, useEffect } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { useFormState } from 'react-dom';
 
 // 65. FormContainer Component
 
 const initialState = {
-  message: "",
+  message: '',
 };
 
 type Props = {
-  action: actionFunction;
+  formSubmitAction: formSubmitAction;
   children: ReactNode;
 };
 
-// action（フォームの送信時に実行される関数）と
+// formSubmitAction（フォームの送信時に実行される関数）と
 // children （コンポーネントの子要素）を Props として受け取ります。
-const FormWrapper = ({ action, children }: Props) => {
-  // ここで、formAction は FormData オブジェクトを自動的に作成し、それを action 関数に渡します。
-  const [state, formAction] = useFormState(action, initialState);
+const FormWrapper = ({ formSubmitAction, children }: Props) => {
+  const [state, formAction] = useFormState(formSubmitAction, initialState);
   const { toast } = useToast();
 
   useEffect(() => {

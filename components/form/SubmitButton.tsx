@@ -15,20 +15,19 @@ type Props = {
   size?: buttonSize;
 };
 
-const SubmitButtonWrapper = (props: Props) => {
+const SubmitButton = (props: Props) => {
   const { className = '', text = 'submit', size = 'lg' } = props;
 
   // The useFormStatus Hook provides status information of the "last form submission".
-  // must be rendered within a <form>.
+  // It must be rendered within a <form>.
   // pending が true の場合、フォームは現在送信中または処理中です。
-  // pending が falseの場合、フォームは送信中ではありません。
   const { pending } = useFormStatus();
 
   return (
     <Button type={'submit'} disabled={pending} className={`capitalize ${className}`} size={size}>
       {pending ? (
         <>
-          <ReloadIcon className={'mr-2 h-4 w-4　animate-spin'} />
+          <ReloadIcon className={'mr-2 h-4 w-4 animate-spin'} />
           Please wait...
         </>
       ) : (
@@ -38,4 +37,4 @@ const SubmitButtonWrapper = (props: Props) => {
   );
 };
 
-export default SubmitButtonWrapper;
+export default SubmitButton;

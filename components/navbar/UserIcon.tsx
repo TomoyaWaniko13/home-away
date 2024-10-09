@@ -11,7 +11,7 @@ const UserIcon = async () => {
     return <Image src={profileImage} className={'w-6 h-6 rounded-full object-cover'} alt={'user image'} width={100} height={100} />;
   }
 
-  return <LuUser2 className={'w-6 h-6 bg-primary rounded-full text-white'} />;
+  return <LuUser2 className={'w-6 h-6 bg-primary rounded-full text-white dark:bg-muted'} />;
 };
 
 export default UserIcon;

@@ -1,12 +1,12 @@
 'use client';
 
-import { actionFunction } from '@/utils/types';
+import { formSubmitAction } from '@/utils/types';
 import { ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import FormWrapper from '@/components/form/FormWrapper';
 import ImageInput from '@/components/form/ImageInput';
-import SubmitButtonWrapper from '@/components/form/SubmitButtonWrapper';
+import SubmitButton from '@/components/form/SubmitButton';
 import { LuUser2 } from 'react-icons/lu';
 
 // 81. Image Input Container
@@ -14,7 +14,7 @@ import { LuUser2 } from 'react-icons/lu';
 type Props = {
   image: string;
   name: string;
-  action: actionFunction;
+  action: formSubmitAction;
   text: string;
   children?: ReactNode;
 };
@@ -35,10 +35,10 @@ const ImageInputWrapper = (props: Props) => {
       </Button>
       {isUpdateFormVisible && (
         <div className={'max-w-lg mt-4'}>
-          <FormWrapper action={action}>
+          <FormWrapper formSubmitAction={action}>
             {children}
             <ImageInput />
-            <SubmitButtonWrapper size={'sm'} />
+            <SubmitButton size={'sm'} />
           </FormWrapper>
         </div>
       )}

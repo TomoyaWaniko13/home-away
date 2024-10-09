@@ -156,7 +156,7 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
     });
 
     revalidatePath('/profile');
-    return { messagce: 'Profile image updated successfully' };
+    return { message: 'Profile image updated successfully' };
   } catch (error) {
     return renderError(error);
   }

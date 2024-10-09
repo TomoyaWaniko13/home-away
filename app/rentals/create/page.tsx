@@ -4,8 +4,11 @@ import { createPropertyAction } from '@/utils/actions';
 import FormInput from '@/components/form/FormInput';
 import SubmitButton from '@/components/form/SubmitButton';
 import PriceInput from '@/components/form/PriceInput';
+import CategoriesInput from '@/components/form/CategoriesInput';
 
 // 87. Create Property Page - Setup
+// 88. Price Input
+// 89. Categories Input
 
 const CreatePropertyPage = () => {
   return (
@@ -17,6 +20,7 @@ const CreatePropertyPage = () => {
             <FormInput inputType={'text'} name={'firstName'} label={'Name (20 limit)'} defaultValue={'Cabin in latvia'} />
             <FormInput inputType={'text'} name={'tagline'} label={'Tagline (30 limit)'} defaultValue={'Dream Gateway Awaits you here'} />
             <PriceInput />
+            <CategoriesInput />
           </div>
           <SubmitButton text={'create rental'} className={'mt-8'} />
         </FormWrapper>

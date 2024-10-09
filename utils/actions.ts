@@ -140,6 +140,7 @@ export const updateProfileAction = async (prevState: any, formData: FormData): P
 // 81. Image Input Container
 // 82. Image Zod Validation
 // 85. Update Profile Image Action - Complete
+
 export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
   const user = await getAuthUser();
 
@@ -153,6 +154,7 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
       data: { profileImage: fullPath },
     });
 
+    revalidatePath('/profile');
     return { message: 'Profile image updated successfully' };
   } catch (error) {
     return renderError(error);

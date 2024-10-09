@@ -13,12 +13,11 @@ const ProfilePage = async () => {
 
   return (
     <section>
-      <h1 className={'text-2xl font-semibold mb-8 capitalize'}>user profile</h1>
-      <div className={'border p-4 rounded-md max-w-lg'}>
+      <h1 className={'text-2xl font-semibold pb-8 capitalize'}>user profile</h1>
+      <div className={'border p-4 rounded-md'}>
         <ImageInputWrapper image={profile.profileImage} name={profile.username} action={updateProfileImageAction} text={'Update profile Image'} />
         <FormWrapper formSubmitAction={updateProfileAction}>
-          {/* 縦並びにします。 */}
-          <div className={'grid gap-4 mt-4'}>
+          <div className={'grid grid-cols-2 gap-5 pt-4'}>
             <FormInput inputType={'text'} name={'firstName'} label={'First Name'} defaultValue={profile.firstName} />
             <FormInput inputType={'text'} name={'lastName'} label={'Last Name'} defaultValue={profile.lastName} />
             <FormInput inputType={'text'} name={'username'} label={'Username'} defaultValue={profile.username} />

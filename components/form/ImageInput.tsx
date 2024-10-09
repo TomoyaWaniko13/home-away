@@ -5,14 +5,7 @@ import { Input } from '@/components/ui/input';
 const ImageInput = () => {
   const name = 'image';
 
-  return (
-    <div className={'mb-4'}>
-      {/*<Label htmlFor={name} className={'capitalize'}>*/}
-      {/*  Image*/}
-      {/*</Label>*/}
-      <Input id={name} name={name} type={'file'} required={true} accept={'image/*'} />
-    </div>
-  );
+  return <Input id={name} name={name} type={'file'} required={true} accept={'image/*'} />;
 };
 
 export default ImageInput;

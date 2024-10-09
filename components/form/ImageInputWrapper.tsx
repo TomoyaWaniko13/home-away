@@ -5,9 +5,9 @@ import { ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import FormWrapper from '@/components/form/FormWrapper';
-import ImageInput from '@/components/form/ImageInput';
-import SubmitButton from '@/components/form/SubmitButton';
 import { LuUser2 } from 'react-icons/lu';
+import SubmitButton from '@/components/form/SubmitButton';
+import ImageInput from '@/components/form/ImageInput';
 
 // 81. Image Input Container
 
@@ -24,25 +24,25 @@ const ImageInputWrapper = (props: Props) => {
   const [isUpdateFormVisible, setUpdateFormVisible] = useState(false);
 
   return (
-    <div>
+    <>
       {image ? (
-        <Image src={image} alt={name} width={100} height={100} className={'rounded object-cover mb-4 w-24 h-24'} />
+        <Image src={image} alt={name} width={100} height={100} className={'rounded object-cover mb-3 w-24 h-24'} />
       ) : (
         <LuUser2 className={'w-24 h-24 bg-primary rounded text-white mb-4'} />
       )}
-      <Button variant={'outline'} size={'sm'} onClick={() => setUpdateFormVisible((prev) => !prev)}>
+      <Button variant={'outline'} onClick={() => setUpdateFormVisible((prev) => !prev)}>
         {text}
       </Button>
       {isUpdateFormVisible && (
-        <div className={'max-w-lg mt-4'}>
-          <FormWrapper formSubmitAction={action}>
+        <FormWrapper formSubmitAction={action}>
+          <div className={'max-w-md py-3 flex flex-col gap-3'}>
             {children}
             <ImageInput />
-            <SubmitButton size={'sm'} />
-          </FormWrapper>
-        </div>
+            <SubmitButton text={'submit photo'} />
+          </div>
+        </FormWrapper>
       )}
-    </div>
+    </>
   );
 };
 

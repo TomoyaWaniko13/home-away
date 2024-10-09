@@ -40,10 +40,9 @@ function validateFile() {
         return !file || file.size <= maxUploadSize;
       }, 'File size must be less than 1 MB')
       .refine((file) => {
-        // some() メソッドは配列の各要素に対して与えられたコールバック関数を実行し、
-        // 少なくとも1つの要素でコールバック関数が true を返せば、全体として true を返します。
+        // ファイルのタイプが acceptedFileTypes のいずれかに一致すれば true となります。
         // .type は File オブジェクトのプロパティの一つです。
-        return !file || acceptedFileTypes.some((type) => file.type.startsWith(type));
+        return !file || acceptedFileTypes.some((acceptedFileType) => file.type.startsWith(acceptedFileType));
       }, 'File must be an image')
   );
 }

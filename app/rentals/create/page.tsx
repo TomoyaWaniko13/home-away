@@ -6,11 +6,14 @@ import SubmitButton from '@/components/form/SubmitButton';
 import PriceInput from '@/components/form/PriceInput';
 import CategoriesInput from '@/components/form/CategoriesInput';
 import TextAreaInput from '@/components/form/TextAreaInput';
+import CountriesInput from '@/components/form/CountriesInput';
+import ImageInput from '@/components/form/ImageInput';
 
 // 87. Create Property Page - Setup
 // 88. Price Input
 // 89. Categories Input
 // 90. Description Input
+// 91. Countries Input
 
 const CreatePropertyPage = () => {
   return (
@@ -18,14 +21,20 @@ const CreatePropertyPage = () => {
       title={'create property'}
       content={
         <FormWrapper formSubmitAction={createPropertyAction}>
-          <div className={'grid grid-cols-2 gap-5 py-4'}>
-            <FormInput inputType={'text'} name={'firstName'} label={'Name (20 limit)'} defaultValue={'Cabin in latvia'} />
-            <FormInput inputType={'text'} name={'tagline'} label={'Tagline (30 limit)'} defaultValue={'Dream Gateway Awaits you here'} />
-            <PriceInput />
-            <CategoriesInput />
+          <div className={'flex flex-col gap-4'}>
+            <div className={'grid grid-cols-2 gap-5'}>
+              <FormInput inputType={'text'} name={'firstName'} label={'Name (20 limit)'} defaultValue={'Cabin in latvia'} />
+              <FormInput inputType={'text'} name={'tagline'} label={'Tagline (30 limit)'} defaultValue={'Dream Gateway Awaits you here'} />
+              <PriceInput />
+              <CategoriesInput />
+            </div>
+            <TextAreaInput name={'description'} labelText={'Description (10 - 1000 words)'} />
+            <div className={'grid sm:grid-cols-2 gap-8'}>
+              <CountriesInput />
+              <ImageInput />
+            </div>
+            <SubmitButton text={'create rental'} className={'mt-8'} />
           </div>
-          <TextAreaInput name={'description'} labelText={'Description (10 - 1000 words)'} />
-          <SubmitButton text={'create rental'} className={'mt-8'} />
         </FormWrapper>
       }
     />

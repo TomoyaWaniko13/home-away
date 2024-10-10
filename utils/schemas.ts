@@ -48,6 +48,7 @@ function validateFile() {
 }
 
 // 87. Create Property Page - Setup
+// 94. Create Property
 export const propertySchema = z.object({
   name: z
     .string()
@@ -65,7 +66,7 @@ export const propertySchema = z.object({
     .max(100, {
       message: 'tagline must be less than 100 characters.',
     }),
-  price: z.number().int().min(0, {
+  price: z.coerce.number().int().min(0, {
     message: 'price must be a positive number.',
   }),
   category: z.string(),

@@ -5,6 +5,7 @@ import { createProfileAction } from '@/utils/actions';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import CardWrapper from '@/components/CardWrapper';
+import TextAreaInput from '@/components/form/TextAreaInput';
 
 // 62. Create Profile - Setup
 // 66. Refactor Create Profile
@@ -28,6 +29,7 @@ const CreateProfilePage = async () => {
             <FormInput inputType={'text'} name={'lastName'} label={'Last Name'} />
             <FormInput inputType={'text'} name={'username'} label={'Username'} />
           </div>
+          <TextAreaInput name={'description'} />
           <SubmitButton text={'Create Profile'} className={'mt-4'} />
         </FormWrapper>
       }

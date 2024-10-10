@@ -2398,18 +2398,18 @@ export const fetchProperties = async ({
 - create in components/home
     - CategoriesList.tsx
     - EmptyList.tsx
-    - PropertiesContainer.tsx
+    - PropertiesWrapper.tsx
     - PropertiesList.tsx
 
 ```tsx
 import CategoriesList from '@/components/home/CategoriesList';
-import PropertiesContainer from '@/components/home/PropertiesContainer';
+import PropertiesWrapper from '@/components/home/PropertiesWrapper';
 
 function HomePage() {
   return (
     <section>
       <CategoriesList />
-      <PropertiesContainer />
+      <PropertiesWrapper />
     </section>
   );
 }
@@ -2420,7 +2420,7 @@ export default HomePage;
 
 ```tsx
 import CategoriesList from '@/components/home/CategoriesList';
-import PropertiesContainer from '@/components/home/PropertiesContainer';
+import PropertiesWrapper from '@/components/home/PropertiesWrapper';
 
 function HomePage({
   searchParams,
@@ -2435,7 +2435,7 @@ function HomePage({
         category={searchParams?.category}
         search={searchParams?.search}
       />
-      <PropertiesContainer
+      <PropertiesWrapper
         category={searchParams?.category}
         search={searchParams?.search}
       />
@@ -2519,7 +2519,7 @@ function EmptyList({
 export default EmptyList;
 ```
 
-### PropertiesContainer
+### PropertiesWrapper
 
 ```tsx
 import { fetchProperties } from '@/utils/actions';
@@ -2527,7 +2527,7 @@ import PropertiesList from './PropertiesList';
 import EmptyList from './EmptyList';
 import type { PropertyCardProps } from '@/utils/types';
 
-async function PropertiesContainer({
+async function PropertiesWrapper({
   category,
   search,
 }: {
@@ -2551,7 +2551,7 @@ async function PropertiesContainer({
 
   return <PropertiesList properties={properties} />;
 }
-export default PropertiesContainer;
+export default PropertiesWrapper;
 ```
 
 ### Card Components
@@ -2769,7 +2769,7 @@ app/page.tsx
 
 ```tsx
 import CategoriesList from '@/components/home/CategoriesList';
-import PropertiesContainer from '@/components/home/PropertiesContainer';
+import PropertiesWrapper from '@/components/home/PropertiesWrapper';
 import LoadingCards from '@/components/card/LoadingCards';
 import { Suspense } from 'react';
 function HomePage({
@@ -2784,7 +2784,7 @@ function HomePage({
         search={searchParams?.search}
       />
       <Suspense fallback={<LoadingCards />}>
-        <PropertiesContainer
+        <PropertiesWrapper
           category={searchParams?.category}
           search={searchParams?.search}
         />

@@ -1,9 +1,18 @@
-// 48. Remove Boilerplate
+import CategoriesList from '@/components/home/CategoriesList';
+import PropertiesWrapper from '@/components/home/PropertiesWrapper';
 
-export default function HomePage() {
+// 48. Remove Boilerplate
+// 96. Home Page - Setup
+
+type Props = {
+  searchParams: { category?: string; search?: string };
+};
+
+export default function HomePage({ searchParams }: Props) {
   return (
-    <div>
-      <h1 className={'text-3xl'}>HomePage</h1>
-    </div>
+    <section>
+      <CategoriesList />
+      <PropertiesWrapper />
+    </section>
   );
 }

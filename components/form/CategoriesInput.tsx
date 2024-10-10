@@ -1,12 +1,12 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { categories } from '@/utils/categories';
+import { categories, CategoryLabel } from '@/utils/categories';
 
 // 89. Categories Input
 
 const name = 'category';
 
-const CategoriesInput = ({ defaultValue }: { defaultValue?: string }) => {
+const CategoriesInput = ({ defaultValue }: { defaultValue?: CategoryLabel }) => {
   return (
     <div>
       <Label htmlFor={name} className={'capitalize'}>

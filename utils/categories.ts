@@ -9,10 +9,7 @@ import { GoContainer } from 'react-icons/go';
 
 export type CategoryLabel = 'cabin' | 'tent' | 'airstream' | 'cottage' | 'container' | 'caravan' | 'tiny' | 'magic' | 'warehouse' | 'lodge';
 
-type Category = {
-  label: CategoryLabel;
-  icon: IconType;
-};
+type Category = { label: CategoryLabel; icon: IconType };
 
 export const categories: Category[] = [
   {

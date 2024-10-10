@@ -28,7 +28,7 @@ const CounterInput = ({ detail, defaultValue }: Props) => {
       {/* input */}
       <input type='hidden' name={detail} value={count} />
       <CardHeader>
-        <CardTitle>{detail}</CardTitle>
+        <CardTitle className={'text-base'}>{detail}</CardTitle>
         <CardDescription>Specify the number of {detail}</CardDescription>
       </CardHeader>
 

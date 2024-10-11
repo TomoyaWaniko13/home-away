@@ -15,8 +15,6 @@ const PropertiesWrapper = async ({ categoryQuery, searchQuery }: Props) => {
   if (properties.length === 0) {
     return <EmptyList heading={'No results.'} message={'Try changing or removing some of your filters.'} btnText={'Clear filters'} />;
   }
-
-  return <PropertiesWrapper properties={properties} />;
 };
 
 export default PropertiesWrapper;

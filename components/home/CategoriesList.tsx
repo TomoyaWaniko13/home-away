@@ -1,9 +1,9 @@
-// 97. Categories List
-
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { categories } from '@/utils/categories';
 import { clsx } from 'clsx';
 import Link from 'next/link';
+
+// 97. Categories List
 
 type Props = {
   categoryQuery?: string;
@@ -20,7 +20,7 @@ const CategoriesList = ({ categoryQuery, searchQuery }: Props) => {
           {categories.map((category) => {
             const isActive = category.label === categoryQuery;
             return (
-              <Link key={category.label} href={`/?category=${category.label}${searchTerm}`}>
+              <Link key={category.label} href={`/?category=${category.label}${searchTerm}`} prefetch={true}>
                 <article
                   className={clsx('p-3 flex-col items-center cursor-pointer duration-300 hover:text-primary w-[100px]', {
                     'text-primary': isActive,

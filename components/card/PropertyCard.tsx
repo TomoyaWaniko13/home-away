@@ -3,10 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { formatCurrency } from '@/utils/format';
 import PropertyRating from '@/components/card/PropertyRating';
+import FavoriteToggleButton from '@/components/card/FavoriteToggleButton';
 
 // 100. PropertyCard - Setup
 // 101. PropertyCard - Structure
 // 102. Property Rating
+// 103. Favorites Toggle Button
 
 type Props = {
   property: PropertyCardProps;
@@ -32,7 +34,9 @@ const PropertyCard = ({ property }: Props) => {
           </p>
         </div>
       </Link>
-      <div className={'absolute top-5 right-5 z-5'}></div>
+      <div className={'absolute top-5 right-5 z-5'}>
+        <FavoriteToggleButton propertyId={propertyId} />
+      </div>
     </article>
   );
 };

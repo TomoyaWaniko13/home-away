@@ -1,8 +1,8 @@
-// 96. Home Page - Setup
-// 98. Empty List
-
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+
+// 96. Home Page - Setup
+// 98. Empty List
 
 type Props = {
   heading?: string;
@@ -10,10 +10,10 @@ type Props = {
   btnText?: string;
 };
 
-const EmptyList = ({ heading = 'No items in the list', message = 'keep exploring our properties', btnText = 'back home' }: Props) => {
+const EmptyList = ({ heading = 'No items in the list.', message = 'Keep exploring our properties.', btnText = 'back home' }: Props) => {
   return (
     <div>
-      <h2 className={'text-xl font-bold'}>{heading}</h2>EmptyList
+      <h2 className={'text-xl font-bold'}>{heading}</h2>
       <p className={'text-lg'}>{message}</p>
       <Button asChild className={'mt-4 capitalize'} size={'lg'}>
         <Link href={'/'}>{btnText}</Link>

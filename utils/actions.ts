@@ -196,11 +196,11 @@ export const createPropertyAction = async (prevState: any, formData: FormData): 
 };
 
 // 95. Fetch Properties
-export const fetchProperties = async ({ search = '', category }: { search?: string; category?: string }) => {
+export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { searchQuery?: string; categoryQuery?: string }) => {
   const properties = await db.property.findMany({
     where: {
-      category,
-      OR: [{ name: { contains: search, mode: 'insensitive' } }, { tagline: { contains: search, mode: 'insensitive' } }],
+      category: categoryQuery,
+      OR: [{ name: { contains: searchQuery, mode: 'insensitive' } }, { tagline: { contains: searchQuery, mode: 'insensitive' } }],
     },
     select: {
       id: true,

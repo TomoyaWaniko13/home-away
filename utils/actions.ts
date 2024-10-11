@@ -214,4 +214,6 @@ export const fetchProperties = async ({ search = '', category }: { search?: stri
       createdAt: 'desc',
     },
   });
+
+  return properties;
 };

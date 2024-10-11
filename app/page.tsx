@@ -11,7 +11,7 @@ type Props = {
 export default function HomePage({ searchParams }: Props) {
   return (
     <section>
-      <CategoriesList />
+      <CategoriesList categoryQuery={searchParams.category} searchQuery={searchParams.search} />
       <PropertiesWrapper />
     </section>
   );

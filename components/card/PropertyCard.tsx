@@ -2,8 +2,11 @@ import { PropertyCardProps } from '@/utils/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatCurrency } from '@/utils/format';
+import PropertyRating from '@/components/card/PropertyRating';
 
 // 100. PropertyCard - Setup
+// 101. PropertyCard - Structure
+// 102. Property Rating
 
 type Props = {
   property: PropertyCardProps;
@@ -20,6 +23,7 @@ const PropertyCard = ({ property }: Props) => {
         </div>
         <div className={'flex justify-between items-center'}>
           <h3 className={'text-sm font-semibold mt-1'}>{name.substring(0, 30)}</h3>
+          <PropertyRating inPage={false} propertyId={propertyId} />
         </div>
         <p className={'text-sm mt-1 text-muted-foreground'}>{tagline.substring(0, 40)}</p>
         <div className={'flex justify-between items-center mt-1'}>

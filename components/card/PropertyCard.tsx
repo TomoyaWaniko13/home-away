@@ -4,11 +4,13 @@ import Image from 'next/image';
 import { formatCurrency } from '@/utils/format';
 import PropertyRating from '@/components/card/PropertyRating';
 import FavoriteToggleButton from '@/components/card/FavoriteToggleButton';
+import CountryFlagAndName from '@/components/card/CountryFlagAndName';
 
 // 100. PropertyCard - Setup
 // 101. PropertyCard - Structure
 // 102. Property Rating
 // 103. Favorites Toggle Button
+// 104. Country Name and Flag
 
 type Props = {
   property: PropertyCardProps;
@@ -32,6 +34,7 @@ const PropertyCard = ({ property }: Props) => {
           <p className={'text-sm mt-1'}>
             <span className={'font-semibold'}>{formatCurrency(price)}</span> night
           </p>
+          <CountryFlagAndName countryCode={country} />
         </div>
       </Link>
       <div className={'absolute top-5 right-5 z-5'}>

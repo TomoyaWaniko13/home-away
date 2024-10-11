@@ -12,7 +12,7 @@ export default function HomePage({ searchParams }: Props) {
   return (
     <section>
       <CategoriesList categoryQuery={searchParams.category} searchQuery={searchParams.search} />
-      <PropertiesWrapper />
+      <PropertiesWrapper categoryQuery={searchParams.category} searchQuery={searchParams.search} />
     </section>
   );
 }

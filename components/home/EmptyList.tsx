@@ -12,7 +12,7 @@ type Props = {
 
 const EmptyList = ({ heading = 'No items in the list.', message = 'Keep exploring our properties.', btnText = 'back home' }: Props) => {
   return (
-    <div>
+    <div className={'flex flex-col gap-3 w-fit'}>
       <h2 className={'text-xl font-bold'}>{heading}</h2>
       <p className={'text-lg'}>{message}</p>
       <Button asChild className={'mt-4 capitalize'} size={'lg'}>

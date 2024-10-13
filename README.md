@@ -678,7 +678,7 @@ type SubmitButtonProps = {
   text?: string;
 };
 
-export function SubmitButton({
+export function Buttons({
   className = '',
   text = 'submit',
 }: SubmitButtonProps) {
@@ -751,7 +751,7 @@ export type actionFunction = (
 
 ```tsx
 import FormInput from '@/components/form/FormInput';
-import { SubmitButton } from '@/components/form/Buttons';
+import { Buttons } from '@/components/form/Buttons';
 import FormContainer from '@/components/form/FormContainer';
 
 const createProfileAction = async (prevState: any, formData: FormData) => {
@@ -772,7 +772,7 @@ function CreateProfile() {
             <FormInput type='text' name='lastName' label='Last Name' />
             <FormInput type='text' name='username' label='Username' />
           </div>
-          <SubmitButton text='Create Profile' className='mt-8' />
+          <Buttons text='Create Profile' className='mt-8' />
         </FormContainer>
       </div>
     </section>
@@ -1168,7 +1168,7 @@ app/profile/page.tsx
 import FormContainer from '@/components/form/FormContainer';
 import { updateProfileAction, fetchProfile } from '@/utils/actions';
 import FormInput from '@/components/form/FormInput';
-import { SubmitButton } from '@/components/form/Buttons';
+import { Buttons } from '@/components/form/Buttons';
 
 async function ProfilePage() {
   const profile = await fetchProfile();
@@ -1200,7 +1200,7 @@ async function ProfilePage() {
               defaultValue={profile.username}
             />
           </div>
-          <SubmitButton text='Update Profile' className='mt-8' />
+          <Buttons text='Update Profile' className='mt-8' />
         </FormContainer>
       </div>
     </section>
@@ -1346,7 +1346,7 @@ function ImageInput() {
 export default ImageInput;
 ```
 
-### SubmitButton
+### Buttons
 
 ```tsx
 type btnSize = 'default' | 'lg' | 'sm';
@@ -1357,7 +1357,7 @@ type SubmitButtonProps = {
   size?: btnSize;
 };
 
-export function SubmitButton({
+export function Buttons({
   className = '',
   text = 'submit',
   size = 'lg',
@@ -1394,7 +1394,7 @@ import Image from 'next/image';
 import { Button } from '../ui/button';
 import FormContainer from './FormContainer';
 import ImageInput from './ImageInput';
-import { SubmitButton } from './Buttons';
+import { Buttons } from './Buttons';
 import { type actionFunction } from '@/utils/types';
 import { LuUser2 } from 'react-icons/lu';
 
@@ -1439,7 +1439,7 @@ function ImageInputContainer(props: ImageInputContainerProps) {
           <FormContainer action={action}>
             {props.children}
             <ImageInput />
-            <SubmitButton size='sm' />
+            <Buttons size='sm' />
           </FormContainer>
         </div>
       )}
@@ -1752,7 +1752,7 @@ export const createPropertyAction = async (
 import FormInput from '@/components/form/FormInput';
 import FormContainer from '@/components/form/FormContainer';
 import { createPropertyAction } from '@/utils/actions';
-import { SubmitButton } from '@/components/form/Buttons';
+import { Buttons } from '@/components/form/Buttons';
 
 function CreateProperty() {
   return (
@@ -1780,7 +1780,7 @@ function CreateProperty() {
             {/* categories */}
           </div>
           {/* text area / description */}
-          <SubmitButton text='create rental' className='mt-12' />
+          <Buttons text='create rental' className='mt-12' />
         </FormContainer>
       </div>
     </section>
@@ -3814,7 +3814,7 @@ return (
 ```tsx
 'use client';
 import { useState } from 'react';
-import { SubmitButton } from '@/components/form/Buttons';
+import { Buttons } from '@/components/form/Buttons';
 import FormContainer from '@/components/form/FormContainer';
 import { Card } from '@/components/ui/card';
 import RatingInput from '@/components/form/RatingInput';
@@ -3838,7 +3838,7 @@ function SubmitReview({ propertyId }: { propertyId: string }) {
               labelText='your thoughts on this property'
               defaultValue='Amazing place !!!'
             />
-            <SubmitButton text='Submit' className='mt-4' />
+            <Buttons text='Submit' className='mt-4' />
           </FormContainer>
         </Card>
       )}
@@ -4790,7 +4790,7 @@ import { SignInButton, useAuth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import { useProperty } from '@/utils/store';
 import FormContainer from '@/components/form/FormContainer';
-import { SubmitButton } from '@/components/form/Buttons';
+import { Buttons } from '@/components/form/Buttons';
 import { createBookingAction } from '@/utils/actions';
 
 function ConfirmBooking() {
@@ -4815,7 +4815,7 @@ function ConfirmBooking() {
   return (
     <section>
       <FormContainer action={createBooking}>
-        <SubmitButton text='Reserve' className='w-full' />
+        <Buttons text='Reserve' className='w-full' />
       </FormContainer>
     </section>
   );
@@ -5331,7 +5331,7 @@ import TextAreaInput from '@/components/form/TextAreaInput';
 import CountriesInput from '@/components/form/CountriesInput';
 import CounterInput from '@/components/form/CounterInput';
 import AmenitiesInput from '@/components/form/AmenitiesInput';
-import { SubmitButton } from '@/components/form/Buttons';
+import { Buttons } from '@/components/form/Buttons';
 import { redirect } from 'next/navigation';
 import { type Amenity } from '@/utils/amenities';
 import ImageInputContainer from '@/components/form/ImageInputContainer';
@@ -5391,7 +5391,7 @@ async function EditRentalPage({ params }: { params: { id: string } }) {
           <CounterInput detail='baths' defaultValue={property.baths} />
           <h3 className='text-lg mt-10 mb-6 font-medium'>Amenities</h3>
           <AmenitiesInput defaultValue={defaultAmenities} />
-          <SubmitButton text='edit property' className='mt-12' />
+          <Buttons text='edit property' className='mt-12' />
         </FormContainer>
       </div>
     </section>

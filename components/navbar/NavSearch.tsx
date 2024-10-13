@@ -15,6 +15,7 @@ const NavSearch = () => {
 
   const [search, setSearch] = useState(searchParams.get('search')?.toString() || '');
 
+  // ユーザーの検索入力をURLパラメータと同期させます。
   const handleSearch = useDebouncedCallback((inputValue: string) => {
     const params = new URLSearchParams(searchParams);
     if (inputValue) {
@@ -25,6 +26,7 @@ const NavSearch = () => {
     router.replace(`${pathname}?${params.toString()}`);
   }, 500);
 
+  // この useEffect がない場合、URL から検索パラメータが削除されても入力フィールドの表示が更新されない可能性があります。
   useEffect(() => {
     if (!searchParams.get('search')) {
       setSearch('');

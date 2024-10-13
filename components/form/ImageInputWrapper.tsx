@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import FormWrapper from '@/components/form/FormWrapper';
 import { LuUser2 } from 'react-icons/lu';
-import SubmitButton from '@/components/form/SubmitButton';
 import ImageInput from '@/components/form/ImageInput';
+import { SubmitButton } from '@/components/form/Buttons';
 
 // 81. Image Input Container
 

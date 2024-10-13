@@ -3,8 +3,10 @@
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { ReloadIcon } from '@radix-ui/react-icons';
+import { SignInButton } from '@clerk/nextjs';
+import { FaRegHeart } from 'react-icons/fa';
 
-// 64. SubmitButton Component
+// 64. Buttons Component
 // 81. Image Input Container
 
 type buttonSize = 'default' | 'lg' | 'sm';
@@ -15,7 +17,7 @@ type Props = {
   size?: buttonSize;
 };
 
-const SubmitButton = (props: Props) => {
+export const SubmitButton = (props: Props) => {
   const { className = '', text = 'submit', size = 'lg' } = props;
 
   // The useFormStatus Hook provides status information of the "last form submission".
@@ -37,4 +39,13 @@ const SubmitButton = (props: Props) => {
   );
 };
 
-export default SubmitButton;
+// 107. Favorites SignIn Button
+export const CardSignInButton = () => {
+  return (
+    <SignInButton mode={'modal'}>
+      <Button type={'button'} size={'icon'} variant={'outline'} className={'p-2 cursor-pointer'} asChild>
+        <FaRegHeart />
+      </Button>
+    </SignInButton>
+  );
+};

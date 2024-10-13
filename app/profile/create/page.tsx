@@ -1,11 +1,12 @@
 import FormWrapper from '@/components/form/FormWrapper';
 import FormInput from '@/components/form/FormInput';
-import SubmitButton from '@/components/form/SubmitButton';
+
 import { createProfileAction } from '@/utils/actions';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import CardWrapper from '@/components/CardWrapper';
 import TextAreaInput from '@/components/form/TextAreaInput';
+import { SubmitButton } from '@/components/form/Buttons';
 
 // 62. Create Profile - Setup
 // 66. Refactor Create Profile

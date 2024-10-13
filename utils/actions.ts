@@ -42,6 +42,8 @@ const renderError = (error: unknown): { message: string } => {
 // 73. Create Profile Model and createProfileAction
 
 // form の submit の時に実行される server action です。
+// prevState を引数として取ります:
+// https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
 export const createProfileAction = async (prevState: any, formData: FormData) => {
   try {
     // The currentUser helper returns the Backend User object of the currently active user.
@@ -114,6 +116,8 @@ export const fetchProfile = async () => {
 // 79. ValidateWithZodSchema - Helper Function
 
 // form の submit の時に実行される server action です。
+// prevState を引数として取ります:
+// https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
 export const updateProfileAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
   const user = await getAuthUser();
 
@@ -142,6 +146,8 @@ export const updateProfileAction = async (prevState: any, formData: FormData): P
 // 82. Image Zod Validation
 // 85. Update Profile Image Action - Complete
 
+// prevState を引数として取ります:
+// https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
 export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
   const user = await getAuthUser();
 
@@ -166,6 +172,9 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
 
 // 87. Create Property Page - Setup
 // 94. Create Property
+
+// prevState を引数として取ります:
+// https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
 export const createPropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
   const user = await getAuthUser();
 

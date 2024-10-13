@@ -226,3 +226,21 @@ export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { sea
 
   return properties;
 };
+
+// 108. Fetch Favorite
+// 現在のユーザーが propertyId で指定される Property にいいねをしたのかを取得します。
+export const fetchFavoriteId = async ({ propertyId }: { propertyId: string }) => {
+  const user = await getAuthUser();
+
+  const favorite = await db.favorite.findFirst({
+    where: { profileId: user.id, propertyId },
+    select: { id: true },
+  });
+
+  return favorite?.id || null;
+};
+
+// 108. Fetch Favorite
+export const toggleFavoriteAction = async () => {
+  return { message: 'toggle Favorite' };
+};

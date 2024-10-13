@@ -4,7 +4,7 @@ import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { SignInButton } from '@clerk/nextjs';
-import { FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 // 64. Buttons Component
 // 81. Image Input Container
@@ -22,7 +22,8 @@ export const SubmitButton = (props: Props) => {
 
   // The useFormStatus Hook provides status information of the "last form submission".
   // It must be rendered within a <form>.
-  // pending が true の場合、フォームは現在送信中または処理中です。
+  // When pending === true、the form is being submitted。
+  // https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#pending-states
   const { pending } = useFormStatus();
 
   return (
@@ -47,5 +48,18 @@ export const CardSignInButton = () => {
         <FaRegHeart />
       </Button>
     </SignInButton>
+  );
+};
+
+// 109. Favorites Toggle Form
+export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
+  // about useFormStatus():
+  // https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#pending-states
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type={'submit'} size={'icon'} variant={'outline'} className={'p-2 cursor-pointer'}>
+      {pending ? <ReloadIcon className={'animate-spin'} /> : isFavorite ? <FaHeart /> : <FaRegHeart />}
+    </Button>
   );
 };

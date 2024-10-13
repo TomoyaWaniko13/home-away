@@ -7,6 +7,7 @@ import FavoriteToggleForm from '@/components/card/FavoriteToggleForm';
 // 103. Favorites Toggle Button
 // 107. Favorites SignIn Button
 // 108. Fetch Favorite
+// 109. Favorites Toggle Form
 
 type Props = {
   propertyId: string;
@@ -15,9 +16,10 @@ type Props = {
 const FavoriteToggleButton = async ({ propertyId }: Props) => {
   const { userId } = auth();
   if (!userId) return <CardSignInButton />;
-  const favoriteId = await fetchFavoriteId({ propertyId });
 
-  return <FavoriteToggleForm />;
+  const favoriteId: string | null = await fetchFavoriteId({ propertyId });
+
+  return <FavoriteToggleForm propertyId={propertyId} favoriteId={favoriteId} />;
 };
 
 export default FavoriteToggleButton;

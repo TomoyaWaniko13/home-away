@@ -241,6 +241,10 @@ export const fetchFavoriteId = async ({ propertyId }: { propertyId: string }) =>
 };
 
 // 108. Fetch Favorite
-export const toggleFavoriteAction = async () => {
+// 109. Favorites Toggle Form
+export const toggleFavoriteAction = async (prevState: { propertyId: string; favoriteId: string | null; pathname: string }) => {
+  const { propertyId, favoriteId, pathname } = prevState;
+  console.log(propertyId, favoriteId, pathname);
+
   return { message: 'toggle Favorite' };
 };

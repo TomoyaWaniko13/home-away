@@ -279,6 +279,13 @@ export const fetchFavoriteProperties = async () => {
       },
     },
   });
-
   return favorites.map((favorite) => favorite.property);
+};
+
+// 112. Property Details Page - Setup
+export const fetchPropertyDetails = async (id: string) => {
+  return db.property.findUnique({
+    where: { id },
+    include: { profile: true },
+  });
 };

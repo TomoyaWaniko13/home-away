@@ -242,9 +242,27 @@ export const fetchFavoriteId = async ({ propertyId }: { propertyId: string }) =>
 
 // 108. Fetch Favorite
 // 109. Favorites Toggle Form
+// 110. Toggle Favorites - Functionality
+
 export const toggleFavoriteAction = async (prevState: { propertyId: string; favoriteId: string | null; pathname: string }) => {
   const { propertyId, favoriteId, pathname } = prevState;
-  console.log(propertyId, favoriteId, pathname);
+  const user = await getAuthUser();
 
-  return { message: 'toggle Favorite' };
+  try {
+    // favoriteId が存在するということは、Property(物件)はすでに Favorite に追加されています。
+    if (favoriteId) {
+      await db.favorite.delete({
+        where: { id: favoriteId },
+      });
+    } else {
+      await db.favorite.create({
+        data: { profileId: user.id, propertyId },
+      });
+    }
+
+    revalidatePath(pathname);
+    return { message: favoriteId ? 'Removed from Favorites' : 'Added to Favorites' };
+  } catch (error) {
+    return renderError(error);
+  }
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { toggleFavoriteAction } from '@/actions/actions';
+import { toggleFavoriteAction } from '@/actions/favoriteAction';
 import FormContainer from '@/components/form/FormContainer';
 import { CardSubmitButton } from '@/components/form/Buttons';
 

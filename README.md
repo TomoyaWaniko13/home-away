@@ -803,7 +803,7 @@ export const profileSchema = z.object({
 });
 ```
 
-- create utils/actions.ts
+- create utils/favoriteAction.ts
 - import in profile/create page.tsx
 
 ```ts
@@ -1074,7 +1074,7 @@ export const createProfileAction = async (
 
 ### FetchProfileImage
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const fetchProfileImage = async () => {
@@ -1126,7 +1126,7 @@ async function CreateProfile() {
 
 ### Update Profile
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 const getAuthUser = async () => {
@@ -1209,7 +1209,7 @@ async function ProfilePage() {
 export default ProfilePage;
 ```
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const updateProfileAction = async (
@@ -1240,7 +1240,7 @@ export const updateProfileAction = async (
 
 ### Alternative Error Handling
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 const renderError = (error: unknown): { message: string } => {
@@ -1299,7 +1299,7 @@ export function validateWithZodSchema<T>(
 }
 ```
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 // createProfileAction
@@ -1451,7 +1451,7 @@ export default ImageInputContainer;
 
 ### updateProfileImageAction
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const updateProfileImageAction = async (
@@ -1726,7 +1726,7 @@ export const propertySchema = z.object({
 
 ### createPropertyAction
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const createPropertyAction = async (
@@ -2362,7 +2362,7 @@ export type PropertyCardProps = {
 };
 ```
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const fetchProperties = async ({
@@ -2924,7 +2924,7 @@ export default FavoriteToggleButton;
 
 ### fetchFavorite
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const fetchFavoriteId = async ({
@@ -3028,7 +3028,7 @@ export default FavoriteToggleForm;
 
 ### toggleFavoriteAction
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const toggleFavoriteAction = async (prevState: {
@@ -3063,7 +3063,7 @@ export const toggleFavoriteAction = async (prevState: {
 
 ### fetchFavorites
 
-actions.ts
+favoriteAction.ts
 
 ```ts
 export const fetchFavorites = async () => {
@@ -3124,7 +3124,7 @@ export default FavoritesPage;
 
 ### fetchPropertyDetails
 
-- utils/actions.ts
+- utils/favoriteAction.ts
 
 ```ts
 export const fetchPropertyDetails = (id: string) => {
@@ -3723,7 +3723,7 @@ npx prisma db push
     - SubmitReview.tsx
     - ReviewCard.tsx
 
-- create placeholder functions in actions.ts
+- create placeholder functions in favoriteAction.ts
 
 ```ts
 export const createReviewAction = async () => {
@@ -3888,7 +3888,7 @@ export async function createReviewAction(prevState: any, formData: FormData) {
 
 ### Fetch Property Reviews
 
-- actions.ts
+- favoriteAction.ts
 
 ```ts
 export async function fetchPropertyReviews(propertyId: string) {
@@ -4244,7 +4244,7 @@ export default loading;
 
 ### Allow Review
 
-- actions.ts
+- favoriteAction.ts
 
 ```ts
 export const findExistingReview = async (
@@ -4396,7 +4396,7 @@ npx prisma db push
 
 ### Fetch Bookings
 
-- actions.ts
+- favoriteAction.ts
 
 ```ts
 export const fetchPropertyDetails = (id: string) => {
@@ -4933,7 +4933,7 @@ export default BookingCalendar;
 
 ### Fetch Bookings and Delete Booking
 
-- actions.ts
+- favoriteAction.ts
 
 ```ts
 export const fetchBookings = async () => {
@@ -5118,7 +5118,7 @@ export default loading;
 
 ### Fetch and Delete Rentals
 
-- actions.ts
+- favoriteAction.ts
 
 ```ts
 export const fetchRentals = async () => {
@@ -5290,7 +5290,7 @@ export default RentalsPage;
 
 ### Fetch Rental Details
 
-- actions.ts
+- favoriteAction.ts
 
 ```ts
 export const fetchRentalDetails = async (propertyId: string) => {
@@ -6205,7 +6205,7 @@ export const createBookingAction = async (prevState: {
 
 ### Reservation Stats
 
-- actions.ts
+- favoriteAction.ts
 
 ```ts
 export const fetchReservationStats = async () => {

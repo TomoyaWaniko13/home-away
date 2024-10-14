@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server';
 import { CardSignInButton } from '@/components/form/Buttons';
-import { fetchFavoriteId } from '@/actions/actions';
+import { fetchFavoriteId } from '@/actions/favoriteAction';
 import FavoriteToggleForm from '@/components/card/FavoriteToggleForm';
 
 // 100. PropertyCard - Setup

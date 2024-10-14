@@ -1,6 +1,5 @@
-import CardWrapper from '@/components/CardWrapper';
-import FormWrapper from '@/components/form/FormWrapper';
-import { createPropertyAction } from '@/utils/actions';
+import CardContainer from '@/components/CardContainer';
+import FormContainer from '@/components/form/FormContainer';
 import FormInput from '@/components/form/FormInput';
 import PriceInput from '@/components/form/PriceInput';
 import CategoriesInput from '@/components/form/CategoriesInput';
@@ -10,6 +9,7 @@ import ImageInput from '@/components/form/ImageInput';
 import CounterInput from '@/components/form/CounterInput';
 import AmenitiesInput from '@/components/form/AmenitiesInput';
 import { SubmitButton } from '@/components/form/Buttons';
+import { createPropertyAction } from '@/actions/propertyAction';
 
 // 87. Create Property Page - Setup
 // 88. Price Input
@@ -20,10 +20,10 @@ import { SubmitButton } from '@/components/form/Buttons';
 
 const CreatePropertyPage = () => {
   return (
-    <CardWrapper
+    <CardContainer
       title={'create property'}
       content={
-        <FormWrapper formSubmitAction={createPropertyAction}>
+        <FormContainer formSubmitAction={createPropertyAction}>
           <div className={'flex flex-col gap-4'}>
             <div className={'grid grid-cols-2 gap-5'}>
               <FormInput inputType={'text'} name={'name'} label={'Name (20 limit)'} defaultValue={'Cabin in latvia'} />
@@ -45,7 +45,7 @@ const CreatePropertyPage = () => {
             <AmenitiesInput />
             <SubmitButton text={'create rental'} className={'mt-8'} />
           </div>
-        </FormWrapper>
+        </FormContainer>
       }
     />
   );

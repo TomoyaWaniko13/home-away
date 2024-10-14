@@ -1,12 +1,12 @@
-import FormWrapper from '@/components/form/FormWrapper';
+import FormContainer from '@/components/form/FormContainer';
 import FormInput from '@/components/form/FormInput';
 
-import { createProfileAction } from '@/utils/actions';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import CardWrapper from '@/components/CardWrapper';
+import CardContainer from '@/components/CardContainer';
 import TextAreaInput from '@/components/form/TextAreaInput';
 import { SubmitButton } from '@/components/form/Buttons';
+import { createProfileAction } from '@/actions/profileAction';
 
 // 62. Create Profile - Setup
 // 66. Refactor Create Profile
@@ -20,10 +20,10 @@ const CreateProfilePage = async () => {
   if (user?.privateMetadata?.hasProfile) redirect('/');
 
   return (
-    <CardWrapper
+    <CardContainer
       title={'new user'}
       content={
-        <FormWrapper formSubmitAction={createProfileAction}>
+        <FormContainer formSubmitAction={createProfileAction}>
           {/* 縦並びにします。 */}
           <div className={'grid gap-5 pt-4'}>
             <FormInput inputType={'text'} name={'firstName'} label={'First Name'} />
@@ -32,7 +32,7 @@ const CreateProfilePage = async () => {
           </div>
           <TextAreaInput name={'description'} />
           <SubmitButton text={'Create Profile'} className={'mt-4'} />
-        </FormWrapper>
+        </FormContainer>
       }
     />
   );

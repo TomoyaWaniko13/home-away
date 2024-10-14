@@ -6,7 +6,7 @@ type Props = {
   content: ReactNode;
 };
 
-const CardWrapper = ({ title, content }: Props) => {
+const CardContainer = ({ title, content }: Props) => {
   return (
     <Card className={'max-w-4/5'}>
       <CardHeader>
@@ -17,4 +17,4 @@ const CardWrapper = ({ title, content }: Props) => {
   );
 };
 
-export default CardWrapper;
+export default CardContainer;

@@ -1,4 +1,4 @@
-import { fetchFavoriteProperties } from '@/utils/actions';
+import { fetchFavoriteProperties } from '@/actions/actions';
 import EmptyList from '@/components/home/EmptyList';
 import PropertiesList from '@/components/home/PropertiesList';
 

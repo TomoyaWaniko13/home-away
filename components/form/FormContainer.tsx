@@ -18,7 +18,7 @@ type Props = {
 
 // formSubmitAction（フォームの送信時に実行される関数）と
 // children （コンポーネントの子要素）を Props として受け取ります。
-const FormWrapper = ({ formSubmitAction, children }: Props) => {
+const FormContainer = ({ formSubmitAction, children }: Props) => {
   // https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
   const [state, formAction] = useFormState(formSubmitAction, initialState);
   const { toast } = useToast();
@@ -30,4 +30,4 @@ const FormWrapper = ({ formSubmitAction, children }: Props) => {
   return <form action={formAction}>{children}</form>;
 };
 
-export default FormWrapper;
+export default FormContainer;

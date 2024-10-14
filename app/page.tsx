@@ -2,7 +2,7 @@
 // 96. Home Page - Setup
 // 105. Loading Cards
 
-import PropertiesWrapper from '@/components/home/PropertiesWrapper';
+import PropertiesContainer from '@/components/home/PropertiesContainer';
 import CategoriesList from '@/components/home/CategoriesList';
 import LoadingCards from '@/components/card/LoadingCards';
 import { Suspense } from 'react';
@@ -16,7 +16,7 @@ export default function HomePage({ searchParams }: Props) {
     <section>
       <CategoriesList categoryQuery={searchParams.category} searchQuery={searchParams.search} />
       <Suspense fallback={<LoadingCards />}>
-        <PropertiesWrapper categoryQuery={searchParams.category} searchQuery={searchParams.search} />
+        <PropertiesContainer categoryQuery={searchParams.category} searchQuery={searchParams.search} />
       </Suspense>
     </section>
   );

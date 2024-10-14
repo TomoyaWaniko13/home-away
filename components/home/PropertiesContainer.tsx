@@ -1,7 +1,7 @@
 import { PropertyCardProps } from '@/utils/types';
-import { fetchProperties } from '@/utils/actions';
 import EmptyList from '@/components/home/EmptyList';
 import PropertiesList from '@/components/home/PropertiesList';
+import { fetchProperties } from '@/actions/propertyAction';
 
 // 96. Home Page - Setup
 
@@ -10,7 +10,7 @@ type Props = {
   searchQuery?: string;
 };
 
-const PropertiesWrapper = async ({ categoryQuery, searchQuery }: Props) => {
+const PropertiesContainer = async ({ categoryQuery, searchQuery }: Props) => {
   const properties: PropertyCardProps[] = await fetchProperties({ categoryQuery, searchQuery });
 
   if (properties.length === 0) {
@@ -20,4 +20,4 @@ const PropertiesWrapper = async ({ categoryQuery, searchQuery }: Props) => {
   return <PropertiesList properties={properties} />;
 };
 
-export default PropertiesWrapper;
+export default PropertiesContainer;

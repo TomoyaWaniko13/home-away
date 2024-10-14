@@ -1,8 +1,8 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { toggleFavoriteAction } from '@/utils/actions';
-import FormWrapper from '@/components/form/FormWrapper';
+import { toggleFavoriteAction } from '@/actions/actions';
+import FormContainer from '@/components/form/FormContainer';
 import { CardSubmitButton } from '@/components/form/Buttons';
 
 // 100. PropertyCard - Setup
@@ -19,9 +19,9 @@ const FavoriteToggleForm = ({ propertyId, favoriteId }: Props) => {
   const toggleAction = toggleFavoriteAction.bind(null, { propertyId, favoriteId, pathname });
 
   return (
-    <FormWrapper formSubmitAction={toggleAction}>
+    <FormContainer formSubmitAction={toggleAction}>
       <CardSubmitButton isFavorite={!!favoriteId} />
-    </FormWrapper>
+    </FormContainer>
   );
 };
 

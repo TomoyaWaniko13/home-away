@@ -1,20 +1,19 @@
-'use server';
-
-import db from '@/utils/db';
-import { createClerkClient, currentUser } from '@clerk/nextjs/server';
-import { imageSchema, profileSchema, propertySchema, validateWithZodSchema } from '@/utils/schemas';
-import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
-import { uploadImage } from '@/utils/supabase';
-
 // 73. Create Profile Model and createProfileAction
+import { imageSchema, profileSchema, validateWithZodSchema } from '@/utils/schemas';
+import { uploadImage } from '@/utils/supabase';
+import db from '@/utils/db';
+import { revalidatePath } from 'next/cache';
+import { renderError } from '@/lib/utils';
+import { createClerkClient, currentUser } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
+
 const clerkClient = createClerkClient({
   secretKey: process.env.CLERK_SECRET_KEY,
 });
 
 // 76. Fetch User Profile
 // 現在のユーザーが、ログインしているかどうかと、profile をすでに提供しているかを確認します。
-const getAuthUser = async () => {
+export const getAuthUser = async () => {
   // https://clerk.com/docs/references/nextjs/current-user
   // The currentUser helper returns the Backend User object of the currently active user.
   // It can be used in Server Components, Route Handlers, and Server Actions.
@@ -30,16 +29,6 @@ const getAuthUser = async () => {
 
   return user;
 };
-
-// 77. Update Profile Page
-const renderError = (error: unknown): { message: string } => {
-  console.log(error);
-  const errorMessage = error instanceof Error ? error.message : 'An error occurred';
-  return { message: errorMessage };
-};
-
-// 67. Zod Library
-// 73. Create Profile Model and createProfileAction
 
 // form の submit の時に実行される server action です。
 // prevState を引数として取ります:
@@ -72,11 +61,9 @@ export const createProfileAction = async (prevState: any, formData: FormData) =>
     // this useful for storing sensitive data that you don't want to expose to the frontend.
     // For example, you could store a user's Stripe customer ID.
     await clerkClient.users.updateUserMetadata(user.id, { privateMetadata: { hasProfile: true } });
-    //
   } catch (error) {
     renderError(error);
   }
-
   redirect('/');
 };
 
@@ -103,17 +90,12 @@ export const fetchProfile = async () => {
     where: { clerkId: user.id },
   });
 
-  // Prisma の CRUD は null になる可能性があります。
-  // const profile の上をホバーすればわかります。
+  // Prisma の CRUD は null になる可能性があります。const profile の上をホバーすればわかります。
   if (!profile) redirect('/profile/create');
 
   // profile 情報全てを return します。
   return profile;
 };
-
-// 76. Fetch User Profile
-// 78. Zod SafeParse Method
-// 79. ValidateWithZodSchema - Helper Function
 
 // form の submit の時に実行される server action です。
 // prevState を引数として取ります:
@@ -142,10 +124,6 @@ export const updateProfileAction = async (prevState: any, formData: FormData): P
   }
 };
 
-// 81. Image Input Container
-// 82. Image Zod Validation
-// 85. Update Profile Image Action - Complete
-
 // prevState を引数として取ります:
 // https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
 export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
@@ -168,124 +146,4 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
   } catch (error) {
     return renderError(error);
   }
-};
-
-// 87. Create Property Page - Setup
-// 94. Create Property
-
-// prevState を引数として取ります:
-// https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
-export const createPropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
-  const user = await getAuthUser();
-
-  try {
-    const rawData = Object.fromEntries(formData);
-    const file = formData.get('image') as File;
-    console.log(rawData);
-    console.log(file);
-
-    const validatedFields = validateWithZodSchema(propertySchema, rawData);
-    const validatedFile = validateWithZodSchema(imageSchema, { image: file });
-
-    // 画像ファイルをSupabaseのストレージにアップロードし、その公開URLを返します。
-    const fullPath = await uploadImage(validatedFile.image);
-
-    await db.property.create({
-      data: {
-        ...validatedFields,
-        image: fullPath,
-        profileId: user.id,
-      },
-    });
-    //
-  } catch (error) {
-    return renderError(error);
-  }
-  redirect('/');
-};
-
-// 95. Fetch Properties
-export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { searchQuery?: string; categoryQuery?: string }) => {
-  const properties = await db.property.findMany({
-    where: {
-      category: categoryQuery,
-      OR: [{ name: { contains: searchQuery, mode: 'insensitive' } }, { tagline: { contains: searchQuery, mode: 'insensitive' } }],
-    },
-    select: {
-      id: true,
-      name: true,
-      image: true,
-      tagline: true,
-      country: true,
-      price: true,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-
-  return properties;
-};
-
-// 108. Fetch Favorite
-// 現在のユーザーが propertyId で指定される Property にいいねをしたのかを取得します。
-export const fetchFavoriteId = async ({ propertyId }: { propertyId: string }) => {
-  const user = await getAuthUser();
-
-  const favorite = await db.favorite.findFirst({
-    where: { profileId: user.id, propertyId },
-    select: { id: true },
-  });
-
-  return favorite?.id || null;
-};
-
-// 108. Fetch Favorite
-// 109. Favorites Toggle Form
-// 110. Toggle Favorites - Functionality
-
-export const toggleFavoriteAction = async (prevState: { propertyId: string; favoriteId: string | null; pathname: string }) => {
-  const { propertyId, favoriteId, pathname } = prevState;
-  const user = await getAuthUser();
-
-  try {
-    // favoriteId が存在するということは、Property(物件)はすでに Favorite に追加されています。
-    if (favoriteId) {
-      await db.favorite.delete({
-        where: { id: favoriteId },
-      });
-    } else {
-      await db.favorite.create({
-        data: { profileId: user.id, propertyId },
-      });
-    }
-
-    revalidatePath(pathname);
-    return { message: favoriteId ? 'Removed from Favorites' : 'Added to Favorites' };
-  } catch (error) {
-    return renderError(error);
-  }
-};
-
-// 111. Favorites Page
-export const fetchFavoriteProperties = async () => {
-  const user = await getAuthUser();
-
-  const favorites = await db.favorite.findMany({
-    where: { profileId: user.id },
-    select: {
-      property: {
-        select: { id: true, name: true, tagline: true, country: true, price: true, image: true },
-      },
-    },
-  });
-  return favorites.map((favorite) => favorite.property);
-};
-
-// 112. Property Details Page - Setup
-export const fetchPropertyDetails = async (id: string) => {
-  return db.property.findUnique({
-    where: { id },
-    include: { profile: true },
-  });
 };

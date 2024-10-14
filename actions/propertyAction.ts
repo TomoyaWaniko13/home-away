@@ -1,0 +1,68 @@
+// prevState を引数として取ります:
+// https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
+import db from '@/utils/db';
+import { getAuthUser } from '@/actions/profileAction';
+import { imageSchema, propertySchema, validateWithZodSchema } from '@/utils/schemas';
+import { uploadImage } from '@/utils/supabase';
+import { renderError } from '@/lib/utils';
+import { redirect } from 'next/navigation';
+
+export const createPropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+
+  try {
+    const rawData = Object.fromEntries(formData);
+    const file = formData.get('image') as File;
+    console.log(rawData);
+    console.log(file);
+
+    const validatedFields = validateWithZodSchema(propertySchema, rawData);
+    const validatedFile = validateWithZodSchema(imageSchema, { image: file });
+
+    // 画像ファイルをSupabaseのストレージにアップロードし、その公開URLを返します。
+    const fullPath = await uploadImage(validatedFile.image);
+
+    await db.property.create({
+      data: {
+        ...validatedFields,
+        image: fullPath,
+        profileId: user.id,
+      },
+    });
+    //
+  } catch (error) {
+    return renderError(error);
+  }
+  redirect('/');
+};
+
+// 95. Fetch Properties
+export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { searchQuery?: string; categoryQuery?: string }) => {
+  const properties = await db.property.findMany({
+    where: {
+      category: categoryQuery,
+      OR: [
+        { name: { contains: searchQuery, mode: 'insensitive' } },
+        {
+          tagline: {
+            contains: searchQuery,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    },
+    // <PropertiesList/> component に必要なフィールドを取得します。
+    select: { id: true, name: true, image: true, tagline: true, country: true, price: true },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return properties;
+};
+
+// 112. Property Details Page - Setup
+export const fetchPropertyDetails = async (id: string) => {
+  return db.property.findUnique({
+    where: { id },
+    include: { profile: true },
+  });
+};

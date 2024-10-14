@@ -4,7 +4,7 @@ import { formSubmitAction } from '@/utils/types';
 import { ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import FormWrapper from '@/components/form/FormWrapper';
+import FormContainer from '@/components/form/FormContainer';
 import { LuUser2 } from 'react-icons/lu';
 import ImageInput from '@/components/form/ImageInput';
 import { SubmitButton } from '@/components/form/Buttons';
@@ -19,7 +19,7 @@ type Props = {
   children?: ReactNode;
 };
 
-const ImageInputWrapper = (props: Props) => {
+const ImageInputContainer = (props: Props) => {
   const { image, name, action, buttonText, children } = props;
   const [isUpdateFormVisible, setUpdateFormVisible] = useState(false);
 
@@ -35,16 +35,16 @@ const ImageInputWrapper = (props: Props) => {
       </Button>
       {/* <Button/> を押すと以下の部分が出現/消失します。 */}
       {isUpdateFormVisible && (
-        <FormWrapper formSubmitAction={action}>
+        <FormContainer formSubmitAction={action}>
           <div className={'max-w-md py-3 flex flex-col gap-3'}>
             {children}
             <ImageInput />
             <SubmitButton text={'submit photo'} />
           </div>
-        </FormWrapper>
+        </FormContainer>
       )}
     </>
   );
 };
 
-export default ImageInputWrapper;
+export default ImageInputContainer;

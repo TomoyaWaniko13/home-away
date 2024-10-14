@@ -1,6 +1,6 @@
 import { LuUser2 } from 'react-icons/lu';
-import { fetchProfileImage } from '@/utils/actions';
 import Image from 'next/image';
+import { fetchProfileImage } from '@/actions/profileAction';
 
 // 58. LinksDropdown Component
 

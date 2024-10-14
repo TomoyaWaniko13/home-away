@@ -13,6 +13,7 @@ type Props = {
   favoriteId: string | null;
 };
 
+// フォームの送信とUIの更新を行います。
 const FavoriteToggleForm = ({ propertyId, favoriteId }: Props) => {
   const pathname = usePathname();
   const toggleAction = toggleFavoriteAction.bind(null, { propertyId, favoriteId, pathname });

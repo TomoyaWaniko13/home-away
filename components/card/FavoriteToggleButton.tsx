@@ -13,6 +13,7 @@ type Props = {
   propertyId: string;
 };
 
+// 認証状態の確認とお気に入りの状態の取得を行います。
 const FavoriteToggleButton = async ({ propertyId }: Props) => {
   const { userId } = auth();
   if (!userId) return <CardSignInButton />;

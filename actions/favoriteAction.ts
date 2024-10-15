@@ -28,15 +28,12 @@ export const toggleFavoriteAction = async (prevState: { propertyId: string; favo
   try {
     // favoriteId が存在するということは、Property(物件)はすでに Favorite に追加されています。
     if (favoriteId) {
-      await db.favorite.delete({
-        where: { id: favoriteId },
-      });
+      await db.favorite.delete({ where: { id: favoriteId } });
     } else {
-      await db.favorite.create({
-        data: { profileId: user.id, propertyId },
-      });
+      await db.favorite.create({ data: { profileId: user.id, propertyId } });
     }
 
+    // これにより、ページが再レンダリングされ、お気に入りの追加や削除といった最新の変更がユーザーインターフェースに即時に反映されます。
     revalidatePath(pathname);
     return { message: favoriteId ? 'Removed from Favorites' : 'Added to Favorites' };
   } catch (error) {
@@ -50,9 +47,9 @@ export const fetchFavoriteProperties = async () => {
 
   const favorites = await db.favorite.findMany({
     where: { profileId: user.id },
+    // <PropertiesList/> component に必要なフィールドを取得します。
     select: {
       property: {
-        // <PropertiesList/> component に必要なフィールドを取得します。
         select: { id: true, name: true, tagline: true, country: true, price: true, image: true },
       },
     },

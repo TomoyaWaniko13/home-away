@@ -23,7 +23,7 @@ const CreateProfilePage = async () => {
     <CardContainer
       title={'new user'}
       content={
-        <FormContainer formSubmitAction={createProfileAction}>
+        <FormContainer action={createProfileAction}>
           {/* 縦並びにします。 */}
           <div className={'grid gap-5 pt-4'}>
             <FormInput inputType={'text'} name={'firstName'} label={'First Name'} />

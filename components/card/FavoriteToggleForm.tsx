@@ -19,7 +19,7 @@ const FavoriteToggleForm = ({ propertyId, favoriteId }: Props) => {
   const toggleAction = toggleFavoriteAction.bind(null, { propertyId, favoriteId, pathname });
 
   return (
-    <FormContainer formSubmitAction={toggleAction}>
+    <FormContainer action={toggleAction}>
       <CardSubmitButton isFavorite={!!favoriteId} />
     </FormContainer>
   );

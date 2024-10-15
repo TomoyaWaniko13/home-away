@@ -23,7 +23,7 @@ const CreatePropertyPage = () => {
     <CardContainer
       title={'create property'}
       content={
-        <FormContainer formSubmitAction={createPropertyAction}>
+        <FormContainer action={createPropertyAction}>
           <div className={'flex flex-col gap-4'}>
             <div className={'grid grid-cols-2 gap-5'}>
               <FormInput inputType={'text'} name={'name'} label={'Name (20 limit)'} defaultValue={'Cabin in latvia'} />

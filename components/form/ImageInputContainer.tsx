@@ -1,24 +1,23 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import FormContainer from '@/components/form/FormContainer';
 import { LuUser2 } from 'react-icons/lu';
 import ImageInput from '@/components/form/ImageInput';
 import { SubmitButton } from '@/components/form/Buttons';
-import { formSubmitAction } from '@/actions/formSubmitAction';
+import { type actionFunction } from '@/utils/types';
 
 // 81. Image Input Container
 
 type Props = {
   image: string;
   name: string;
-  action: formSubmitAction;
+  action: actionFunction;
   buttonText: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
 };
-
 const ImageInputContainer = (props: Props) => {
   const { image, name, action, buttonText, children } = props;
   const [isUpdateFormVisible, setUpdateFormVisible] = useState(false);
@@ -35,7 +34,7 @@ const ImageInputContainer = (props: Props) => {
       </Button>
       {/* <Button/> を押すと以下の部分が出現/消失します。 */}
       {isUpdateFormVisible && (
-        <FormContainer formSubmitAction={action}>
+        <FormContainer action={action}>
           <div className={'max-w-md py-3 flex flex-col gap-3'}>
             {children}
             <ImageInput />

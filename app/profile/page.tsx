@@ -23,7 +23,7 @@ const ProfilePage = async () => {
             action={updateProfileImageAction}
             buttonText={'Update profile Image'}
           />
-          <FormContainer formSubmitAction={updateProfileAction}>
+          <FormContainer action={updateProfileAction}>
             <div className={'grid grid-cols-2 gap-5 pt-4'}>
               <FormInput inputType={'text'} name={'firstName'} label={'First Name'} defaultValue={profile.firstName} />
               <FormInput inputType={'text'} name={'lastName'} label={'Last Name'} defaultValue={profile.lastName} />

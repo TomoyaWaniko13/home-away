@@ -6,12 +6,15 @@ import ImageContainer from '@/components/properties/ImageContainer';
 import PropertyRating from '@/components/card/PropertyRating';
 import { fetchPropertyDetails } from '@/actions/propertyAction';
 import BookingCalendar from '@/components/properties/BookingCalendar';
+import PropertyDetails from '@/components/properties/PropertyDetails';
 
 // 49. Create Pages
 // 112. Property Details Page - Setup
 // 113. Breadcrumbs Component
 // 114. Share Button Component
 // 115. Image Container Component
+// 116. Calendar Component
+// 117. Property Details Component
 
 const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
   const property = await fetchPropertyDetails(params.id);
@@ -33,8 +36,11 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
       <ImageContainer mainImage={property.image} name={property.name} />
       <section className={'lg:grid lg:grid-cols-12 gap-x-12 mt-12'}>
         <div className={'lg:col-span-8'}>
-          <h1 className={'text-xl font-bold'}>{property.name}</h1>
-          <PropertyRating inPage propertyId={property.id} />
+          <div className={'flex gap-x-4 items-center'}>
+            <h1 className={'text-xl font-bold'}>{property.name}</h1>
+            <PropertyRating inPage propertyId={property.id} />
+          </div>
+          <PropertyDetails details={details} />
         </div>
         <div className={'lg:col-span-4 flex flex-col items-center'}>
           <BookingCalendar />

@@ -1,6 +1,5 @@
 'use client';
 
-import { formSubmitAction } from '@/utils/types';
 import { ReactNode, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,7 @@ import FormContainer from '@/components/form/FormContainer';
 import { LuUser2 } from 'react-icons/lu';
 import ImageInput from '@/components/form/ImageInput';
 import { SubmitButton } from '@/components/form/Buttons';
+import { formSubmitAction } from '@/actions/formSubmitAction';
 
 // 81. Image Input Container
 

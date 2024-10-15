@@ -17,8 +17,7 @@ export const createPropertyAction = async (prevState: any, formData: FormData): 
     const validatedFields = validateWithZodSchema(propertySchema, rawData);
 
     const validatedFile = validateWithZodSchema(imageSchema, { image: file });
-
-    // 画像ファイルをSupabaseのストレージにアップロードし、その公開URLを取得します。
+    // uploadImage()は画像ファイルをSupabaseのストレージにアップロードし、その公開URLをreturnします。
     const fullPath = await uploadImage(validatedFile.image);
 
     await db.property.create({

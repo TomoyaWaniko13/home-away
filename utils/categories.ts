@@ -12,45 +12,14 @@ export type CategoryLabel = 'cabin' | 'tent' | 'airstream' | 'cottage' | 'contai
 type Category = { label: CategoryLabel; icon: IconType };
 
 export const categories: Category[] = [
-  {
-    label: 'cabin',
-    icon: MdCabin,
-  },
-  {
-    label: 'airstream',
-    icon: PiVan,
-  },
-  {
-    label: 'tent',
-    icon: TbTent,
-  },
-  {
-    label: 'warehouse',
-    icon: PiWarehouse,
-  },
-  {
-    label: 'cottage',
-    icon: TbBuildingCottage,
-  },
-  {
-    label: 'magic',
-    icon: GiMushroomHouse,
-  },
-  {
-    label: 'container',
-    icon: GoContainer,
-  },
-  {
-    label: 'caravan',
-    icon: TbCaravan,
-  },
-
-  {
-    label: 'tiny',
-    icon: PiLighthouse,
-  },
-  {
-    label: 'lodge',
-    icon: GiWoodCabin,
-  },
+  { label: 'cabin', icon: MdCabin },
+  { label: 'airstream', icon: PiVan },
+  { label: 'tent', icon: TbTent },
+  { label: 'warehouse', icon: PiWarehouse },
+  { label: 'cottage', icon: TbBuildingCottage },
+  { label: 'magic', icon: GiMushroomHouse },
+  { label: 'container', icon: GoContainer },
+  { label: 'caravan', icon: TbCaravan },
+  { label: 'tiny', icon: PiLighthouse },
+  { label: 'lodge', icon: GiWoodCabin },
 ];

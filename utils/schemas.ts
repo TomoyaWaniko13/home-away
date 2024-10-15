@@ -21,31 +21,29 @@ export function validateWithZodSchema<T>(schema: ZodSchema<T>, data: unknown): T
 }
 
 // 82. Image Zod Validation
-export const imageSchema = z.object({
-  image: validateFile(),
-});
-
-// 82. Image Zod Validation
 function validateFile() {
   const maxUploadSize = 1024 * 1024;
   const acceptedFileTypes = ['image/'];
 
   return (
     z
-      // The File interface provides information about files.
-      // https://developer.mozilla.org/en-US/docs/Web/API/Fi
+      // The File interface provides information about files. https://developer.mozilla.org/en-US/docs/Web/API/Fi
       .instanceof(File)
-      // .size は File オブジェクトのプロパティの一つです。
       .refine((file) => {
+        // .size は File オブジェクトのプロパティの一つです。
         return !file || file.size <= maxUploadSize;
       }, 'File size must be less than 1 MB')
       .refine((file) => {
-        // ファイルのタイプが acceptedFileTypes のいずれかに一致すれば true となります。
-        // .type は File オブジェクトのプロパティの一つです。
+        // ファイルのタイプが acceptedFileTypes のいずれかの要素に一致すれば true となります。.type は File オブジェクトのプロパティの一つです。
         return !file || acceptedFileTypes.some((acceptedFileType) => file.type.startsWith(acceptedFileType));
       }, 'File must be an image')
   );
 }
+
+// 82. Image Zod Validation
+export const imageSchema = z.object({
+  image: validateFile(),
+});
 
 // 87. Create Property Page - Setup
 // 94. Create Property

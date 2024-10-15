@@ -10,6 +10,7 @@ import PropertyDetails from '@/components/properties/PropertyDetails';
 import UserInfo from '@/components/properties/UserInfo';
 import { Separator } from '@/components/ui/separator';
 import Description from '@/components/properties/Description';
+import Amenities from '@/components/properties/Amenities';
 
 // 49. Create Pages
 // 112. Property Details Page - Setup
@@ -52,6 +53,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
           <UserInfo profile={userProfile} />
           <Separator className={'mt-4'} />
           <Description description={property.description} />
+          <Amenities amenities={property.amenities} />
         </div>
         <div className={'lg:col-span-4 flex flex-col items-center'}>
           <BookingCalendar />

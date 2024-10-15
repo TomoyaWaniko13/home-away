@@ -10,7 +10,7 @@ import { getAuthUser } from '@/actions/profileAction';
 export const fetchFavoriteId = async ({ propertyId }: { propertyId: string }) => {
   const user = await getAuthUser();
 
-  const favorite = await db.favorite.findFirst({
+  const favorite: { id: string } | null = await db.favorite.findFirst({
     where: { profileId: user.id, propertyId },
     select: { id: true },
   });
@@ -54,5 +54,6 @@ export const fetchFavoriteProperties = async () => {
       },
     },
   });
+
   return favorites.map((favorite) => favorite.property);
 };

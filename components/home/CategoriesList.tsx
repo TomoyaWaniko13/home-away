@@ -20,7 +20,7 @@ const CategoriesList = ({ categoryQuery, searchQuery }: Props) => {
           {categories.map((category) => {
             const isActive = category.label === categoryQuery;
             return (
-              <Link key={category.label} href={`/?category=${category.label}${searchTerm}`} prefetch={true}>
+              <Link key={category.label} href={`/?category=${category.label}${searchTerm}`} prefetch>
                 <article
                   className={clsx('p-3 flex-col items-center cursor-pointer duration-300 hover:text-primary w-[100px]', {
                     'text-primary': isActive,
@@ -29,7 +29,7 @@ const CategoriesList = ({ categoryQuery, searchQuery }: Props) => {
                   <div className={'flex justify-center'}>
                     <category.icon className={'w-8 h-8'} />
                   </div>
-                  <p className={'capitalize  mt-1 text-center'}>{category.label}</p>
+                  <p className={'capitalize mt-1 text-center'}>{category.label}</p>
                 </article>
               </Link>
             );

@@ -70,7 +70,6 @@ export const createProfileAction = async (prevState: any, formData: FormData) =>
 // 74. Fetch Profile Image Action
 export const fetchProfileImage = async () => {
   const user = await currentUser();
-
   if (!user) return null;
 
   const profile = await db.profile.findUnique({
@@ -104,10 +103,8 @@ export const updateProfileAction = async (prevState: any, formData: FormData): P
   const user = await getAuthUser();
 
   try {
-    // The Object.fromEntries() static method transforms
-    // a list of key-value pairs into an object.
+    // The Object.fromEntries() static method transforms a list of key-value pairs into an object.
     const rawData = Object.fromEntries(formData);
-
     const validatedFields = validateWithZodSchema(profileSchema, rawData);
 
     await db.profile.update({
@@ -117,7 +114,6 @@ export const updateProfileAction = async (prevState: any, formData: FormData): P
 
     // https://nextjs.org/docs/app/api-reference/functions/revalidatePath
     revalidatePath('/profile');
-
     return { message: 'Profile updated successfully' };
   } catch (error) {
     return renderError(error);
@@ -130,7 +126,7 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
   const user = await getAuthUser();
 
   try {
-    const image = formData.get('image') as File;
+    const image: File = formData.get('image') as File;
     const validatedFields = validateWithZodSchema(imageSchema, { image });
 
     // 画像ファイルをSupabaseのストレージにアップロードし、その公開URLを取得します。

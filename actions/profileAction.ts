@@ -1,3 +1,5 @@
+'use server';
+
 // 73. Create Profile Model and createProfileAction
 import { imageSchema, profileSchema, validateWithZodSchema } from '@/utils/schemas';
 import { uploadImage } from '@/utils/supabase';

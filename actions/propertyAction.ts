@@ -1,3 +1,5 @@
+'use server';
+
 // prevState を引数として取ります:
 // https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
 import db from '@/utils/db';

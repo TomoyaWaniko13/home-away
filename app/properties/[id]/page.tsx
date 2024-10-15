@@ -7,6 +7,9 @@ import PropertyRating from '@/components/card/PropertyRating';
 import { fetchPropertyDetails } from '@/actions/propertyAction';
 import BookingCalendar from '@/components/properties/BookingCalendar';
 import PropertyDetails from '@/components/properties/PropertyDetails';
+import UserInfo from '@/components/properties/UserInfo';
+import { Separator } from '@/components/ui/separator';
+import Description from '@/components/properties/Description';
 
 // 49. Create Pages
 // 112. Property Details Page - Setup
@@ -15,12 +18,18 @@ import PropertyDetails from '@/components/properties/PropertyDetails';
 // 115. Image Container Component
 // 116. Calendar Component
 // 117. Property Details Component
+// 118. UserInfo Component
+// 119. Description Component
 
 const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
   const property = await fetchPropertyDetails(params.id);
   if (!property) redirect('/');
+
   const { baths, bedrooms, beds, guests } = property;
   const details = { baths, bedrooms, beds, guests };
+
+  const { firstName, profileImage } = property.profile;
+  const userProfile = { firstName, profileImage };
 
   return (
     <section>
@@ -28,7 +37,6 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
       <header className={'flex justify-between items-center mt-4'}>
         <h1 className={'text-4xl font-bold capitalize'}>{property.tagline}</h1>
         <div className={'flex items-center gap-x-4'}>
-          {/* share button */}
           <ShareButton name={property.name} propertyId={property.id} />
           <FavoriteToggleButton propertyId={property.id} />
         </div>
@@ -41,6 +49,9 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
             <PropertyRating inPage propertyId={property.id} />
           </div>
           <PropertyDetails details={details} />
+          <UserInfo profile={userProfile} />
+          <Separator className={'mt-4'} />
+          <Description description={property.description} />
         </div>
         <div className={'lg:col-span-4 flex flex-col items-center'}>
           <BookingCalendar />

@@ -44,6 +44,7 @@ export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { sea
 };
 
 // 112. Property Details Page - Setup
+// Property と Profile の情報を取得します。
 export const fetchPropertyDetails = async (id: string) => {
   return db.property.findUnique({
     where: { id },

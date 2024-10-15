@@ -16,9 +16,7 @@ const Description = ({ description }: Props) => {
   const words: string[] = description.split(' ');
   const isLongDescription = words.length > 100;
 
-  const toggleDescription = () => {
-    setIsFullDescriptionShown(!isFullDescriptionShown);
-  };
+  const toggleDescription = () => setIsFullDescriptionShown(!isFullDescriptionShown);
 
   const displayedDescription: string = isLongDescription && !isFullDescriptionShown ? words.splice(0, 100).join(' ') + '...' : description;
 

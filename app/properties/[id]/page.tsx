@@ -11,6 +11,8 @@ import UserInfo from '@/components/properties/UserInfo';
 import { Separator } from '@/components/ui/separator';
 import Description from '@/components/properties/Description';
 import Amenities from '@/components/properties/Amenities';
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // 49. Create Pages
 // 112. Property Details Page - Setup
@@ -21,6 +23,14 @@ import Amenities from '@/components/properties/Amenities';
 // 117. Property Details Component
 // 118. UserInfo Component
 // 119. Description Component
+
+// dynamic()を使うと、コンポーネントは必要になるまでロードされません。これにより初期ページロード時間を短縮できます:
+// https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading
+const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
+  // ssr: falseにより、このコンポーネントはクライアントサイドでのみレンダリングされます。これは、マップライブラリがブラウザ環境を必要とする場合に有用です。
+  ssr: false,
+  loading: () => <Skeleton className={'h-[400px] w-full'} />,
+});
 
 const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
   const property = await fetchPropertyDetails(params.id);
@@ -54,6 +64,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
           <Separator className={'mt-4'} />
           <Description description={property.description} />
           <Amenities amenities={property.amenities} />
+          <DynamicMap countryCode={property.country} />
         </div>
         <div className={'lg:col-span-4 flex flex-col items-center'}>
           <BookingCalendar />

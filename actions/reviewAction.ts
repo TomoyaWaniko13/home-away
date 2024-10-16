@@ -30,8 +30,20 @@ export const createReviewAction = async (prevState: any, formData: FormData) => 
 };
 
 // 124. Reviews Model
-export const fetchPropertyReviews = async () => {
-  return { message: 'fetch reviews' };
+// 128. Fetch Reviews
+export const fetchPropertyReviews = async (propertyId: string) => {
+  const reviews = await db.review.findMany({
+    where: { propertyId },
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+      profile: { select: { firstName: true, profileImage: true } },
+    },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return reviews;
 };
 
 // 124. Reviews Model

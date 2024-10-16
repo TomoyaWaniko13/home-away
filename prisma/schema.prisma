@@ -48,11 +48,11 @@ model Property {
   amenities   String
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  // この特定の物件(Property)をお気に入りに登録したユーザーのリストを表しています。
-  favorites   Favorite[]
   // propertyAction.ts において、profileId に clerk の ID を設定します。
   profileId   String
   profile     Profile    @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
+  // この特定の物件(Property)をお気に入りに登録したユーザーのリストを表しています。
+  favorites   Favorite[]
   reviews     Review[]
 }
 

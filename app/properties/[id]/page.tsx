@@ -13,6 +13,7 @@ import Description from '@/components/properties/Description';
 import Amenities from '@/components/properties/Amenities';
 import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/ui/skeleton';
+import SubmitReview from '@/components/reviews/SubmitReview';
 
 // 49. Create Pages
 // 112. Property Details Page - Setup
@@ -70,6 +71,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
           <BookingCalendar />
         </div>
       </section>
+      <SubmitReview propertyId={property.id} />
     </section>
   );
 };

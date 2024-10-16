@@ -13,13 +13,20 @@ function AmenitiesInput({ defaultValue }: Props) {
   const [selectedAmenities, setSelectedAmenities] = useState<Amenity[]>(defaultValue || amenities);
 
   // 単一の amenity の選択状態を反転する関数
-  const toggleAmenitySelection = (amenity: Amenity): Amenity => ({ ...amenity, selected: !amenity.selected });
+  const toggleAmenitySelection = (amenity: Amenity): Amenity => {
+    return { ...amenity, selected: !amenity.selected };
+  };
+
+  //  currentAmenities 内の特定の amenity を更新する関数
+  const updateAmenityInList = (currentAmenities: Amenity[], amenityToUpdate: Amenity): Amenity[] => {
+    return currentAmenities.map((currentAmenity) =>
+      currentAmenity.name === amenityToUpdate.name ? toggleAmenitySelection(currentAmenity) : currentAmenity,
+    );
+  };
 
   // メインの関数
   const handleChange = (changedAmenity: Amenity) => {
-    return selectedAmenities.map((selectedAmenity: Amenity) =>
-      selectedAmenity.name === changedAmenity.name ? toggleAmenitySelection(selectedAmenity) : selectedAmenity,
-    );
+    setSelectedAmenities((currentAmenities) => updateAmenityInList(currentAmenities, changedAmenity));
   };
 
   return (

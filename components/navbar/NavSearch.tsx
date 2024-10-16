@@ -1,15 +1,15 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 // 55. Logo and NavSearch Components
 // 106. NavSearch Component
+// 123. Deploy Application on Vercel
 
 const NavSearch = () => {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -23,7 +23,7 @@ const NavSearch = () => {
     } else {
       params.delete('search');
     }
-    router.replace(`${pathname}?${params.toString()}`);
+    router.replace(`/?${params.toString()}`);
   }, 500);
 
   // この useEffect がない場合、URL から検索パラメータが削除されても入力フィールドの表示が更新されない可能性があります。

@@ -15,25 +15,25 @@ datasource db {
 }
 
 model Profile {
-  id           String   @id @default(uuid())
-  clerkId      String   @unique
+  id           String     @id @default(uuid())
+  clerkId      String     @unique
   firstName    String
   lastName     String
   username     String
   email        String
   profileImage String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
   // 一人のユーザー（Profile）が複数の物件（Property）を所有または管理できることを意味します。
-  properties Property[]
+  properties   Property[]
   // ユーザー（Profile）がお気に入りに登録した物件（Property）を表しています。
-  favorites  Favorite[]
+  favorites    Favorite[]
+  reviews      Review[]
 }
 
 // 86. Property Schema
 model Property {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
   tagline     String
   category    String
@@ -46,27 +46,37 @@ model Property {
   beds        Int
   baths       Int
   amenities   String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   // この特定の物件(Property)をお気に入りに登録したユーザーのリストを表しています。
-  favorites Favorite[]
-
+  favorites   Favorite[]
   // propertyAction.ts において、profileId に clerk の ID を設定します。
-  profileId String
-  profile   Profile @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
+  profileId   String
+  profile     Profile    @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
+  reviews     Review[]
 }
 
 // 107. Favorites SignIn Button
 // 各 Favorite エントリは、1人のユーザー(Profile)が1つの物件(Property)をお気に入りに登録したことを表す記録です。
 model Favorite {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  profileId String
-  profile   Profile @relation(fields: [profileId], references: [clerkId])
-
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  profileId  String
+  profile    Profile  @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
   propertyId String
-  property   Property @relation(fields: [propertyId], references: [id])
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+// 124. Reviews Model
+model Review {
+  id         String   @id @default(uuid())
+  rating     Int
+  comment    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  profildId  String
+  profile    Profile  @relation(fields: [profildId], references: [clerkId], onDelete: Cascade)
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }

@@ -18,9 +18,9 @@ function AmenitiesInput({ defaultValue }: Props) {
   };
 
   //  currentAmenities 内の特定の amenity を更新する関数
-  const updateAmenityInList = (currentAmenities: Amenity[], amenityToUpdate: Amenity): Amenity[] => {
+  const updateAmenityInList = (currentAmenities: Amenity[], changedAmenity: Amenity): Amenity[] => {
     return currentAmenities.map((currentAmenity) =>
-      currentAmenity.name === amenityToUpdate.name ? toggleAmenitySelection(currentAmenity) : currentAmenity,
+      currentAmenity.name === changedAmenity.name ? toggleAmenitySelection(currentAmenity) : currentAmenity,
     );
   };
 

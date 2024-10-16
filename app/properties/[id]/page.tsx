@@ -14,6 +14,7 @@ import Amenities from '@/components/properties/Amenities';
 import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/ui/skeleton';
 import SubmitReview from '@/components/reviews/SubmitReview';
+import PropertyReviews from '@/components/reviews/PropertyReviews';
 
 // 49. Create Pages
 // 112. Property Details Page - Setup
@@ -72,6 +73,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
         </div>
       </section>
       <SubmitReview propertyId={property.id} />
+      <PropertyReviews propertyId={property.id} />
     </section>
   );
 };

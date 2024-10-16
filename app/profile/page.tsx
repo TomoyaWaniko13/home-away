@@ -1,4 +1,4 @@
-import CardContainer from '@/components/CardContainer';
+import CardContainer from '@/components/card/CardContainer';
 import FormContainer from '@/components/form/FormContainer';
 import ImageInputContainer from '@/components/form/ImageInputContainer';
 import FormInput from '@/components/form/FormInput';

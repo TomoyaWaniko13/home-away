@@ -29,6 +29,7 @@ model Profile {
   // ユーザー（Profile）がお気に入りに登録した物件（Property）を表しています。
   favorites    Favorite[]
   reviews      Review[]
+  bookings     Booking[]
 }
 
 // 86. Property Schema
@@ -54,6 +55,7 @@ model Property {
   // この特定の物件(Property)をお気に入りに登録したユーザーのリストを表しています。
   favorites   Favorite[]
   reviews     Review[]
+  bookings    Booking[]
 }
 
 // 107. Favorites SignIn Button
@@ -79,4 +81,18 @@ model Review {
   profile    Profile  @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
   propertyId String
   property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+// 137. Booking Model
+model Booking {
+  id            String   @id @default(uuid())
+  orderTotal    Int
+  totalNights   Int
+  checkIn       DateTime
+  checkOut      DateTime
+  paymentStatus Boolean  @default(false)
+  profileId     String
+  profile       Profile  @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
+  propertyId    String
+  property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }

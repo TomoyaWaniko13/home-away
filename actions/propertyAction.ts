@@ -45,10 +45,14 @@ export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { sea
 };
 
 // 112. Property Details Page - Setup
-// Property と Profile の情報を取得します。
+// 138. Booking Components
+// Property の id を使って、 Property,Profile,Booking の情報を取得します。
 export const fetchPropertyDetails = async (id: string) => {
   return db.property.findUnique({
     where: { id },
-    include: { profile: true },
+    include: {
+      profile: true,
+      bookings: { select: { checkIn: true, checkOut: true } },
+    },
   });
 };

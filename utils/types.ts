@@ -12,3 +12,16 @@ export type PropertyCardProps = {
   country: string;
   price: number;
 };
+
+// 138. Booking Components
+export type DateRangeSelect = {
+  startDate: Date;
+  endDate: Date;
+  key: string;
+};
+
+// 138. Booking Components
+export type Booking = {
+  checkIn: Date;
+  checkOut: Date;
+};

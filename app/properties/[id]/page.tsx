@@ -5,7 +5,6 @@ import ShareButton from '@/components/properties/ShareButton';
 import ImageContainer from '@/components/properties/ImageContainer';
 import PropertyRating from '@/components/card/PropertyRating';
 import { fetchPropertyDetails } from '@/actions/propertyAction';
-import BookingCalendar from '@/components/properties/BookingCalendar';
 import PropertyDetails from '@/components/properties/PropertyDetails';
 import UserInfo from '@/components/properties/UserInfo';
 import { Separator } from '@/components/ui/separator';
@@ -28,11 +27,18 @@ import { findExistingReview } from '@/actions/reviewAction';
 // 118. UserInfo Component
 // 119. Description Component
 // 136. Allow Review
+// 139. Zustand Library
 
 // dynamic()を使うと、コンポーネントは必要になるまでロードされません。これにより初期ページロード時間を短縮できます:
 // https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading
 const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
   // ssr: falseにより、このコンポーネントはクライアントサイドでのみレンダリングされます。これは、マップライブラリがブラウザ環境を必要とする場合に有用です。
+  ssr: false,
+  loading: () => <Skeleton className={'h-[400px] w-full'} />,
+});
+
+const DynamicBookingWrapper = dynamic(() => import('@/components/booking/BookingWrapper'), {
+  // ssr: falseにより、このコンポーネントはクライアントサイドでのみレンダリングされます。
   ssr: false,
   loading: () => <Skeleton className={'h-[400px] w-full'} />,
 });
@@ -76,7 +82,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
           <DynamicMap countryCode={property.country} />
         </div>
         <div className={'lg:col-span-4 flex flex-col items-center'}>
-          <BookingCalendar />
+          {<DynamicBookingWrapper propertyId={property.id} price={property.price} bookings={property.bookings} />}
         </div>
       </section>
       {reviewDoesNotExist && <SubmitReview propertyId={property.id} />}

@@ -13,7 +13,7 @@ type Props = {
 
 const ReviewCard = ({ reviewInfo, children }: Props) => {
   return (
-    <Card>
+    <Card className={'relative'}>
       <CardHeader>
         <div className={'flex items-center'}>
           <img src={reviewInfo.image} alt='proifle' className={'w-12 h-12 rounded-full object-cover'} />

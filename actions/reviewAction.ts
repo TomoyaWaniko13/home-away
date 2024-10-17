@@ -50,6 +50,7 @@ export const fetchPropertyReviews = async (propertyId: string) => {
 
 // 124. Reviews Model
 // 131. Fetch and Delete User Reviews
+// 現在のユーザーのレビューを取得します。
 export const fetchPropertyReviewsByUser = async () => {
   const user = await getAuthUser();
 
@@ -69,12 +70,14 @@ export const fetchPropertyReviewsByUser = async () => {
 
 // 124. Reviews Model
 // 131. Fetch and Delete User Reviews
+// 特定のレビューを削除します。
 export const deleteReviewAction = async (prevState: { reviewId: string }) => {
   const { reviewId } = prevState;
   const user = await getAuthUser();
 
   try {
     await db.review.delete({
+      // TODO なぜ profileId: user.id が必要? id: reviewId だけでも良いのではないか?
       where: { id: reviewId, profileId: user.id },
     });
 

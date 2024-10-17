@@ -31,6 +31,7 @@ export const createReviewAction = async (prevState: any, formData: FormData) => 
 
 // 124. Reviews Model
 // 128. Fetch Reviews
+// propertyId を元に、review を表示するのに必要な fields を return します。
 export const fetchPropertyReviews = async (propertyId: string) => {
   const reviews = await db.review.findMany({
     where: { propertyId },

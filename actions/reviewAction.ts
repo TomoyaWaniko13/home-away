@@ -54,7 +54,12 @@ export const fetchPropertyReviewsByUser = async () => {
 
   const reviews = await db.review.findMany({
     where: { profileId: user.id },
-    select: { id: true, rating: true, comment: true, property: { select: { name: true, image: true } } },
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+      property: { select: { name: true, image: true } },
+    },
   });
 
   return reviews;

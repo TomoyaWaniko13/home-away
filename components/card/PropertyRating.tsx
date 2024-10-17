@@ -1,17 +1,18 @@
 import { FaStar } from 'react-icons/fa';
 import { clsx } from 'clsx';
+import { fetchPropertyRating } from '@/actions/reviewAction';
 
 // 102. Property Rating
+// 135. PropertyRating Component - Complete
 
 type Props = {
   propertyId: string;
   inPage: boolean;
 };
 
-const PropertyRating = ({ propertyId, inPage }: Props) => {
-  // temp
-  const rating = 4.7;
-  const count = 100;
+const PropertyRating = async ({ propertyId, inPage }: Props) => {
+  const { rating, count } = await fetchPropertyRating(propertyId);
+  if (count === 0) return null;
 
   const countText = count > 1 ? 'reviews' : 'review';
   const countValue = `(${count}) ${inPage ? countText : ''}`;

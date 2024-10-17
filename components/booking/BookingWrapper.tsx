@@ -4,6 +4,7 @@ import { Booking } from '@/utils/types';
 import { useEffect } from 'react';
 import { useProperty } from '@/utils/store';
 import BookingCalendar from '@/components/booking/BookingCalendar';
+import BookingContainer from '@/components/booking/BookingContainer';
 
 // 138. Booking Components
 
@@ -22,7 +23,7 @@ const BookingWrapper = ({ propertyId, price, bookings }: Props) => {
   return (
     <>
       <BookingCalendar />
-      <BookingCalendar />
+      <BookingContainer />
     </>
   );
 };

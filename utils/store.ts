@@ -8,16 +8,12 @@ import { create } from 'zustand';
 type PropertyState = {
   propertyId: string;
   price: number;
+  // Booking は types.ts で定義されています。
   bookings: Booking[];
   range: DateRange | undefined;
 };
 
 // Create the store
 export const useProperty = create<PropertyState>(() => {
-  return {
-    propertyId: '',
-    price: 0,
-    bookings: [],
-    range: undefined,
-  };
+  return { propertyId: '', price: 0, bookings: [], range: undefined };
 });

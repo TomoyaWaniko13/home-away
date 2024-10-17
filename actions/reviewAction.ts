@@ -39,6 +39,7 @@ export const fetchPropertyReviews = async (propertyId: string) => {
       id: true,
       rating: true,
       comment: true,
+      // review を投稿した人の情報を select します。
       profile: { select: { firstName: true, profileImage: true } },
     },
     orderBy: { createdAt: 'desc' },
@@ -58,6 +59,7 @@ export const fetchPropertyReviewsByUser = async () => {
       id: true,
       rating: true,
       comment: true,
+      // review に関連する property を select します。
       property: { select: { name: true, image: true } },
     },
   });

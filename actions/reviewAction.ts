@@ -104,3 +104,11 @@ export async function fetchPropertyRating(propertyId: string) {
     count: result[0]?._count.rating ?? 0,
   };
 }
+
+// 136. Allow Review
+// 現在のユーザーが特定の物件(Property)に対して、すでにレビューを残しているかどうかを取得します。
+export const findExistingReview = async (userId: string, propertyId: string) => {
+  return db.review.findFirst({
+    where: { profileId: userId, propertyId },
+  });
+};

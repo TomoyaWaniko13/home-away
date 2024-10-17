@@ -15,6 +15,8 @@ import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/ui/skeleton';
 import SubmitReview from '@/components/reviews/SubmitReview';
 import PropertyReviews from '@/components/reviews/PropertyReviews';
+import { auth } from '@clerk/nextjs/server';
+import { findExistingReview } from '@/actions/reviewAction';
 
 // 49. Create Pages
 // 112. Property Details Page - Setup
@@ -25,6 +27,7 @@ import PropertyReviews from '@/components/reviews/PropertyReviews';
 // 117. Property Details Component
 // 118. UserInfo Component
 // 119. Description Component
+// 136. Allow Review
 
 // dynamic()を使うと、コンポーネントは必要になるまでロードされません。これにより初期ページロード時間を短縮できます:
 // https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading
@@ -43,6 +46,11 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
 
   const { firstName, profileImage } = property.profile;
   const userProfile = { firstName, profileImage };
+
+  const { userId } = auth();
+  const isNotOwner = property.profile.clerkId !== userId;
+  const reviewDoesNotExist = userId && isNotOwner && !(await findExistingReview(userId, property.id));
+  console.log(reviewDoesNotExist);
 
   return (
     <section>
@@ -72,7 +80,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
           <BookingCalendar />
         </div>
       </section>
-      <SubmitReview propertyId={property.id} />
+      {reviewDoesNotExist && <SubmitReview propertyId={property.id} />}
       <PropertyReviews propertyId={property.id} />
     </section>
   );

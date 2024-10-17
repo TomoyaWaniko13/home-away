@@ -5,6 +5,8 @@ import { Calendar } from '@/components/ui/calendar';
 import { useProperty } from '@/utils/store';
 
 // 138. Booking Components
+// 140. Booking Container / Calendar - Initial Setup
+// 141. Calculate Totals
 
 const BookingCalendar = () => {
   const currentDate = new Date();

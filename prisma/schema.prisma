@@ -86,11 +86,13 @@ model Review {
 // 137. Booking Model
 model Booking {
   id            String   @id @default(uuid())
-  orderTotal    Int
   totalNights   Int
   checkIn       DateTime
   checkOut      DateTime
+  orderTotal    Int
   paymentStatus Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
   profileId     String
   profile       Profile  @relation(fields: [profileId], references: [clerkId], onDelete: Cascade)
   propertyId    String

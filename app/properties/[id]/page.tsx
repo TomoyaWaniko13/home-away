@@ -38,9 +38,8 @@ const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), 
 });
 
 const DynamicBookingWrapper = dynamic(() => import('@/components/booking/BookingWrapper'), {
-  // ssr: falseにより、このコンポーネントはクライアントサイドでのみレンダリングされます。
   ssr: false,
-  loading: () => <Skeleton className={'h-[400px] w-full'} />,
+  loading: () => <Skeleton className={'h-[200px] w-full'} />,
 });
 
 const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {

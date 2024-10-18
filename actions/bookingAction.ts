@@ -5,6 +5,7 @@ import db from '@/utils/db';
 import { calculateTotals } from '@/utils/calculateTotals';
 import { renderError } from '@/lib/utils';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 // 143. Confirm Booking Component
 // 144. Create Booking Action
@@ -30,4 +31,35 @@ export const createBookingAction = async (prevState: { propertyId: string; check
     return renderError(error);
   }
   redirect('/bookings');
+};
+
+// 147. Fetch Bookings and Delete Booking
+export const fetchBookings = async () => {
+  const user = await getAuthUser();
+
+  const bookings = await db.booking.findMany({
+    where: { profileId: user.id },
+    include: { property: { select: { id: true, name: true, country: true } } },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return bookings;
+};
+
+// 147. Fetch Bookings and Delete Booking
+export const deleteBookingAction = async (prevState: { bookingId: string }) => {
+  const { bookingId } = prevState;
+  const user = await getAuthUser();
+
+  try {
+    const result = await db.booking.delete({
+      // TODO なぜ id: bookingId と profileId: user.id の両方が必要?
+      where: { id: bookingId, profileId: user.id },
+    });
+
+    revalidatePath('/bookings');
+    return { message: 'Booking deleted successfully' };
+  } catch (error) {
+    renderError(error);
+  }
 };

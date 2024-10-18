@@ -50,9 +50,6 @@ export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { sea
 export const fetchPropertyDetails = async (id: string) => {
   return db.property.findUnique({
     where: { id },
-    include: {
-      profile: true,
-      bookings: { select: { checkIn: true, checkOut: true } },
-    },
+    include: { profile: true, bookings: { select: { checkIn: true, checkOut: true } } },
   });
 };

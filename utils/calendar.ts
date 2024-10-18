@@ -2,6 +2,7 @@ import { DateRange } from 'react-day-picker';
 import { Booking } from '@/utils/types';
 
 // 140. Booking Container / Calendar - Initial Setup
+// 145. Blocked Periods
 
 export const defaultSelected: DateRange = {
   from: undefined,
@@ -11,7 +12,9 @@ export const defaultSelected: DateRange = {
 export const generateBlockedPeriods = ({ bookings, today }: { bookings: Booking[]; today: Date }) => {
   today.setHours(0, 0, 0, 0); // Set the time to 00:00:00.000
 
+  // shadcn/ui の <Calendar/> が理解できる format に変更します。
   const disabledDays: DateRange[] = [
+    // bookings.map()の結果（新しい配列）を展開し、その展開された要素をdisabledDays配列の要素として直接組み込んでいます。
     ...bookings.map((booking) => ({
       from: booking.checkIn,
       to: booking.checkOut,

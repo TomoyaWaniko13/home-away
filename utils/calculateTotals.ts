@@ -10,7 +10,7 @@ type BookingDetails = {
 
 export const calculateTotals = ({ checkIn, checkOut, price }: BookingDetails) => {
   const totalNights = calculateDaysBetween({ checkIn, checkOut });
-  const subTotal = totalNights * price;
+  const subTotal: number = totalNights * price;
   const cleaning = 21;
   const service = 40;
   const tax = subTotal * 0.1;

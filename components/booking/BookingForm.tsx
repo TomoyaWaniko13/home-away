@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 
 const BookingForm = () => {
   const { range, price } = useProperty((state) => state);
+
   const checkIn = range?.from as Date;
   const checkOut = range?.to as Date;
 

@@ -50,6 +50,7 @@ export const fetchBookings = async () => {
 };
 
 // 147. Fetch Bookings and Delete Booking
+// 149. Delete Booking
 export const deleteBookingAction = async (prevState: { bookingId: string }) => {
   const { bookingId } = prevState;
   const user = await getAuthUser();
@@ -63,6 +64,6 @@ export const deleteBookingAction = async (prevState: { bookingId: string }) => {
     revalidatePath('/bookings');
     return { message: 'Booking deleted successfully' };
   } catch (error) {
-    renderError(error);
+    return renderError(error);
   }
 };

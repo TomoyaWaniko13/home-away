@@ -1,9 +1,11 @@
-import { fetchBookings } from '@/actions/bookingAction';
+import { deleteBookingAction, fetchBookings } from '@/actions/bookingAction';
 import EmptyList from '@/components/home/EmptyList';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatCurrency, formatDate } from '@/utils/format';
 import Link from 'next/link';
 import CountryFlagAndName from '@/components/card/CountryFlagAndName';
+import FormContainer from '@/components/form/FormContainer';
+import { IconButton } from '@/components/form/Buttons';
 
 // 49. Create Pages
 // 148. Bookings Page
@@ -50,12 +52,23 @@ const BookingsPage = async () => {
                 <TableCell>{formatCurrency(orderTotal)}</TableCell>
                 <TableCell>{startDate}</TableCell>
                 <TableCell>{endDate}</TableCell>
+                <TableCell>{<DeleteBooking bookingId={id} />}</TableCell>
               </TableRow>
             );
           })}
         </TableBody>
       </Table>
     </div>
+  );
+};
+
+const DeleteBooking = ({ bookingId }: { bookingId: string }) => {
+  const deleteBooking = deleteBookingAction.bind(null, { bookingId });
+
+  return (
+    <FormContainer action={deleteBooking}>
+      <IconButton actionType={'delete'} />
+    </FormContainer>
   );
 };
 

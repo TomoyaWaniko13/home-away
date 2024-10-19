@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 // 142. Booking Form
 
 const BookingForm = () => {
+  // range と price は価格を計算するために使われます。
   const { range, price } = useProperty((state) => state);
 
   const checkIn = range?.from as Date;

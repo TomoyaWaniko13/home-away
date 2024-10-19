@@ -9,8 +9,7 @@ import ConfirmBooking from '@/components/booking/ConfirmBooking';
 // 141. Calculate Totals
 
 const BookingContainer = () => {
-  // state にアクセスするためにコールバック関数を渡します。
-  const { range } = useProperty((state) => state);
+  const { range } = useProperty((state) => state); // state にアクセスするためにコールバック関数を渡します。
 
   if (!range || !range.from || !range.to) return null;
   if (range.to.getTime() === range.from.getTime()) return null;

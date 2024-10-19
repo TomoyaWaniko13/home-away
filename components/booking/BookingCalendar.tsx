@@ -5,7 +5,7 @@ import { defaultDateRangeSelected, generateBlockedPeriods, generateDateRange, ge
 import { Calendar } from '@/components/ui/calendar';
 import { useProperty } from '@/utils/store';
 import { Booking } from '@/utils/types';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast'; // 138. Booking Components
 
 // 138. Booking Components
 // 140. Booking Container / Calendar - Initial Setup
@@ -15,29 +15,27 @@ import { useToast } from '@/hooks/use-toast';
 
 const BookingCalendar = () => {
   const currentDate = new Date();
+  // <Calendar/> の onSelect の設定により、日付の範囲を選択した時 range の値が更新されます。
   const [range, setRange] = useState<DateRange | undefined>(defaultDateRangeSelected);
+  // state にアクセスするために、コールバック関数を渡します。
   const bookings: Booking[] = useProperty((state) => state.bookings);
 
   const { toast } = useToast();
 
-  // generateBlockedPeriods() を使用して、既存の予約と今日以前の日付から blockedPeriods を生成しています。
-  // これを、generateBlockedPeriods() と、<Calendar/> に渡します。
+  // blockedPeriods 変数は generateDisabledDates() と <Calendar/> に渡されます。
   const blockedPeriods: DateRange[] = generateBlockedPeriods({ bookings, today: currentDate });
-  // generateDisabledDates 関数を使用して、blockedPeriods から unavailableDates オブジェクトを生成しています。
   const unavailableDates: { [p: string]: boolean } = generateDisabledDates(blockedPeriods);
 
   useEffect(() => {
-    // generateDateRange 関数を使用して、選択された日付範囲 (selectedRange) を生成します。
+    // 選択された日付範囲 (selectedRange) を生成します。
     const selectedRange: string[] = generateDateRange(range);
 
     // selectedRange 内の各日付について、その日が unavailableDates に含まれているかチェックします。
     const isDisabledDateIncluded = selectedRange.some((date) => {
       // もし選択範囲内に予約不可能な日付が含まれていた場合：
       if (unavailableDates[date]) {
-        // setRange を使用して選択をリセットします（defaultDateRangeSelected に戻す）。
-        setRange(defaultDateRangeSelected);
-        // toast 関数を使用してユーザーにエラーメッセージを表示します。
-        toast({ description: 'Some dates are booked. Please select again.' });
+        setRange(defaultDateRangeSelected); // setRange を使用して選択をリセットします（defaultDateRangeSelected に戻す）。
+        toast({ description: 'Some dates are booked. Please select again.' }); // toast 関数を使用してユーザーにエラーメッセージを表示します。
         return true;
       }
       return false;

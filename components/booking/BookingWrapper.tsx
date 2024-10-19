@@ -21,10 +21,11 @@ const BookingWrapper = ({ propertyId, price, bookings }: Props) => {
   }, []);
 
   return (
-    <>
+    <div className={'mt-8 lg:mt-0'}>
+      <h2 className={'font-bold text-lg text-center'}>Booking</h2>
       <BookingCalendar />
       <BookingContainer />
-    </>
+    </div>
   );
 };
 

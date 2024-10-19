@@ -15,6 +15,7 @@ const ConfirmBooking = () => {
   const checkIn = range?.from as Date;
   const checkOut = range?.to as Date;
 
+  // ログインしていなければ、ログインを促します。
   if (!userId)
     return (
       <SignInButton mode={'modal'}>
@@ -24,6 +25,7 @@ const ConfirmBooking = () => {
       </SignInButton>
     );
 
+  // バックエンドに property の 価格を取得するので、バックエンドに propertyId を渡します。
   const createBooking = createBookingAction.bind(null, { propertyId, checkIn, checkOut });
 
   return (

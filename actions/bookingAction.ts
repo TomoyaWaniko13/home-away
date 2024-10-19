@@ -9,12 +9,14 @@ import { revalidatePath } from 'next/cache';
 
 // 143. Confirm Booking Component
 // 144. Create Booking Action
+// データベース側で価格を取得するので、propertyId を渡します。
 export const createBookingAction = async (prevState: { propertyId: string; checkIn: Date; checkOut: Date }) => {
   const user = await getAuthUser();
+  // データベースから物件の価格を取得するために、propertyId が必要です。
   const { propertyId, checkIn, checkOut } = prevState;
 
-  // フロントエンドから(引数として)物件の価格を取得するのではなく、バックエンド(データベース)から物件の価格をを取得します。
-  const property = await db.property.findUnique({
+  // フロントエンドから(引数で)物件の価格を取得するのではなく、バックエンド(データベース)から物件の価格を取得します。
+  const property: { price: number } | null = await db.property.findUnique({
     where: { id: propertyId },
     select: { price: true },
   });
@@ -25,7 +27,7 @@ export const createBookingAction = async (prevState: { propertyId: string; check
 
   try {
     const booking = await db.booking.create({
-      data: { orderTotal, totalNights, checkIn, checkOut, profileId: user.id, propertyId },
+      data: { checkIn, checkOut, totalNights, orderTotal, profileId: user.id, propertyId },
     });
   } catch (error) {
     return renderError(error);
@@ -34,6 +36,7 @@ export const createBookingAction = async (prevState: { propertyId: string; check
 };
 
 // 147. Fetch Bookings and Delete Booking
+// 現在のユーザーの bookings を取得します。
 export const fetchBookings = async () => {
   const user = await getAuthUser();
 

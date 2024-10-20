@@ -32,14 +32,14 @@ const BookingsPage = async () => {
         </TableHeader>
         <TableBody>
           {bookings.map((booking) => {
-            const { id, orderTotal, totalNights, checkIn, checkOut } = booking;
+            const { id: bookingId, orderTotal, totalNights, checkIn, checkOut } = booking;
             const { id: propertyId, name, country } = booking.property;
 
             const startDate = formatDate(checkIn);
             const endDate = formatDate(checkOut);
 
             return (
-              <TableRow key={id}>
+              <TableRow key={bookingId}>
                 <TableCell>
                   <Link href={`/properties/${propertyId}`} className={'underline text-muted-foreground tracking-wide'}>
                     {name}
@@ -52,7 +52,7 @@ const BookingsPage = async () => {
                 <TableCell>{formatCurrency(orderTotal)}</TableCell>
                 <TableCell>{startDate}</TableCell>
                 <TableCell>{endDate}</TableCell>
-                <TableCell>{<DeleteBooking bookingId={id} />}</TableCell>
+                <TableCell>{<DeleteBooking bookingId={bookingId} />}</TableCell>
               </TableRow>
             );
           })}

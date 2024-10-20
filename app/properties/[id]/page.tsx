@@ -47,10 +47,7 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
   if (!property) redirect('/');
 
   const { baths, bedrooms, beds, guests } = property;
-  const details = { baths, bedrooms, beds, guests };
-
-  const { firstName, profileImage } = property.profile;
-  const userProfile = { firstName, profileImage };
+  const propertyDetails = { baths, bedrooms, beds, guests };
 
   const { userId } = auth();
   const isNotOwner = property.profile.clerkId !== userId;
@@ -73,8 +70,8 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
             <h1 className={'text-xl font-bold'}>{property.name}</h1>
             <PropertyRating inPage propertyId={property.id} />
           </div>
-          <PropertyDetails details={details} />
-          <UserInfo profile={userProfile} />
+          <PropertyDetails details={propertyDetails} />
+          <UserInfo firstName={property.profile.firstName} profileImage={property.profile.profileImage} />
           <Separator className={'mt-4'} />
           <Description description={property.description} />
           <Amenities amenities={property.amenities} />

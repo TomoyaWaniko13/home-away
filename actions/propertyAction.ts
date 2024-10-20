@@ -8,6 +8,7 @@ import { imageSchema, propertySchema, validateWithZodSchema } from '@/utils/sche
 import { uploadImage } from '@/utils/supabase';
 import { renderError } from '@/lib/utils';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export const createPropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
   const user = await getAuthUser();
@@ -52,4 +53,50 @@ export const fetchPropertyDetails = async (id: string) => {
     where: { id },
     include: { profile: true, bookings: { select: { checkIn: true, checkOut: true } } },
   });
+};
+
+// 151. Fetch and Delete Rentals Functions
+export const fetchRentals = async () => {
+  const user = await getAuthUser();
+
+  const rentals = await db.property.findMany({
+    where: { profileId: user.id },
+    select: { id: true, name: true, price: true },
+  });
+
+  const rentalsWithBookingsSum = await Promise.all(
+    rentals.map(async (rental) => {
+      const totalNightSum = await db.booking.aggregate({
+        where: { propertyId: rental.id },
+        _sum: { totalNights: true },
+      });
+
+      const orderTotal = await db.booking.aggregate({
+        where: { propertyId: rental.id },
+        _sum: { orderTotal: true },
+      });
+
+      return { ...rental, totalNightSum: totalNightSum._sum.totalNights, orderTotalSum: orderTotal._sum.orderTotal };
+    }),
+  );
+
+  return rentalsWithBookingsSum;
+};
+
+// 151. Fetch and Delete Rentals Functions
+export const deleteRentalAction = async (prevState: { propertyId: string }) => {
+  const { propertyId } = prevState;
+  const user = await getAuthUser();
+
+  try {
+    await db.property.delete({
+      // TODO なぜ  id: propertyId と profileId: user.id のどちらも必要なのか?
+      where: { id: propertyId, profileId: user.id },
+    });
+
+    revalidatePath('/rentals');
+    return { message: 'Rental deleted successfully' };
+  } catch (error) {
+    return renderError(error);
+  }
 };

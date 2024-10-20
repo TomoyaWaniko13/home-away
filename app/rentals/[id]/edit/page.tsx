@@ -36,9 +36,9 @@ const EditRentalPage = async ({ params }: { params: { id: string } }) => {
           <TextAreaInput name={'description'} labelText={'Description (10-100 words)'} defaultValue={property.description} />
           <h3 className={'text-lg mt-8 mb-4 font-medium'}>Accommodation Details</h3>
           <CounterInput detail={'guests'} defaultValue={property.guests} />
-          <CounterInput detail={'guests'} defaultValue={property.guests} />
-          <CounterInput detail={'guests'} defaultValue={property.guests} />
-          <CounterInput detail={'guests'} defaultValue={property.guests} />
+          <CounterInput detail={'guests'} defaultValue={property.bedrooms} />
+          <CounterInput detail={'guests'} defaultValue={property.beds} />
+          <CounterInput detail={'guests'} defaultValue={property.baths} />
           <SubmitButton text={'edit property'} className={'mt-12'} />
         </FormContainer>
       </div>

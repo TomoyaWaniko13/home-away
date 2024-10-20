@@ -112,6 +112,16 @@ export const deleteRentalAction = async (prevState: { propertyId: string }) => {
 };
 
 // 153. Fetch Rental Details Function
+export const fetchRentalDetails = async (propertyId: string) => {
+  const user = await getAuthUser();
+
+  return db.property.findUnique({
+    // TODO なぜ id: propertyId と profileId: user.id のどちらも必要なのか?
+    where: { id: propertyId, profileId: user.id },
+  });
+};
+
+// 153. Fetch Rental Details Function
 export const updatePropertyAction = async () => {
   return { message: 'update property action' };
 };

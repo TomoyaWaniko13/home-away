@@ -56,26 +56,36 @@ export const fetchPropertyDetails = async (id: string) => {
 };
 
 // 151. Fetch and Delete Rentals Functions
+// 現在のユーザーの rentals の情報を取得します。
 export const fetchRentals = async () => {
   const user = await getAuthUser();
 
-  const rentals = await db.property.findMany({
+  // ユーザーの所有する物件（レンタル）を取得します。
+  const rentals: { id: string; name: string; price: number }[] = await db.property.findMany({
     where: { profileId: user.id },
     select: { id: true, name: true, price: true },
   });
 
+  // Promise.all() は、複数の非同期操作を並行して実行し、すべての操作が完了するのを待ちます。
   const rentalsWithBookingsSum = await Promise.all(
+    // 各レンタル物件（rental）に対して非同期の処理を行います。
     rentals.map(async (rental) => {
+      // この処理は、特定の物件（propertyId: rental.id）に関連するすべての予約の totalNights フィールドの合計を計算します。
+      // aggregate と _sum を使用して、データベースレベルで効率的に合計を計算しています。
       const totalNightSum = await db.booking.aggregate({
         where: { propertyId: rental.id },
         _sum: { totalNights: true },
       });
 
+      // 同様に、特定の物件に関連するすべての予約の orderTotal フィールドの合計を計算します。
       const orderTotal = await db.booking.aggregate({
         where: { propertyId: rental.id },
         _sum: { orderTotal: true },
       });
 
+      // スプレッド演算子 ...rental を使用して、元のレンタル物件情報をコピーします。
+      // totalNightSum と orderTotalSum プロパティを追加し、それぞれ集計結果を割り当てます。
+      // _sum.totalNights と _sum.orderTotal は、集計結果のオブジェクト構造を反映しています。
       return { ...rental, totalNightSum: totalNightSum._sum.totalNights, orderTotalSum: orderTotal._sum.orderTotal };
     }),
   );
@@ -90,7 +100,7 @@ export const deleteRentalAction = async (prevState: { propertyId: string }) => {
 
   try {
     await db.property.delete({
-      // TODO なぜ  id: propertyId と profileId: user.id のどちらも必要なのか?
+      // TODO なぜ id: propertyId と profileId: user.id のどちらも必要なのか?
       where: { id: propertyId, profileId: user.id },
     });
 

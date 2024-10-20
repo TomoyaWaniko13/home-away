@@ -110,3 +110,13 @@ export const deleteRentalAction = async (prevState: { propertyId: string }) => {
     return renderError(error);
   }
 };
+
+// 153. Fetch Rental Details Function
+export const updatePropertyAction = async () => {
+  return { message: 'update property action' };
+};
+
+// 153. Fetch Rental Details Function
+export const updatePropertyImageAction = async () => {
+  return { message: 'update property image' };
+};

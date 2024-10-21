@@ -6,10 +6,15 @@ import { LuAlignLeft } from 'react-icons/lu';
 import UserIcon from '@/components/navbar/UserIcon';
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
 import SignOutLink from '@/components/navbar/SignOutLink';
+import { auth } from '@clerk/nextjs/server';
 
 // 61. LinksDropdown Component
+// 161. Admin Page - Middleware
 
 const LinksDropdown = () => {
+  const { userId } = auth();
+  const isAdminUser = userId === process.env.ADMIN_USRE_ID;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -34,6 +39,8 @@ const LinksDropdown = () => {
         </SignedOut>
         <SignedIn>
           {links.map((link) => {
+            if (link.label === 'admin' && !isAdminUser) return null;
+
             return (
               <DropdownMenuItem key={link.href}>
                 <Link href={link.href} className={'capitalize w-full'}>

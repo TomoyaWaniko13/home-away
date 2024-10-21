@@ -69,6 +69,7 @@ export const deleteBookingAction = async (prevState: { bookingId: string }) => {
 };
 
 // 158. Fetch Reservations
+// 現在のユーザーの properties に対しての bookings を 取得します。
 export const fetchReservations = async () => {
   const user = await getAuthUser();
 

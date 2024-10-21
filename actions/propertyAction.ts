@@ -14,7 +14,7 @@ export const createPropertyAction = async (prevState: any, formData: FormData): 
   const user = await getAuthUser();
 
   try {
-    const rawData = Object.fromEntries(formData);
+    const rawData = Object.fromEntries(formData); // FormDataオブジェクトをJavaScriptの通常のオブジェクトに変換します。
     const file = formData.get('image') as File;
 
     const validatedFields = validateWithZodSchema(propertySchema, rawData);
@@ -37,7 +37,15 @@ export const fetchProperties = async ({ searchQuery = '', categoryQuery }: { sea
   return db.property.findMany({
     where: {
       category: categoryQuery,
-      OR: [{ name: { contains: searchQuery, mode: 'insensitive' } }, { tagline: { contains: searchQuery, mode: 'insensitive' } }],
+      OR: [
+        { name: { contains: searchQuery, mode: 'insensitive' } },
+        {
+          tagline: {
+            contains: searchQuery,
+            mode: 'insensitive',
+          },
+        },
+      ],
     },
     // <PropertiesList/> component に必要なフィールドを取得します。
     select: { id: true, name: true, image: true, tagline: true, country: true, price: true },
@@ -122,11 +130,49 @@ export const fetchRentalDetails = async (propertyId: string) => {
 };
 
 // 153. Fetch Rental Details Function
-export const updatePropertyAction = async () => {
-  return { message: 'update property action' };
+// 156. Update Rental Functions
+// createPropertyAction() と似たロジックを使います。
+export const updatePropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+  const propertyId = formData.get('id') as string;
+
+  try {
+    const rawData = Object.fromEntries(formData); // FormDataオブジェクトをJavaScriptの通常のオブジェクトに変換します。
+    const validatedFields = validateWithZodSchema(propertySchema, rawData);
+
+    await db.property.update({
+      // TODO なぜ id: propertyId と profileId: user.id のどちらも必要?
+      where: { id: propertyId, profileId: user.id },
+      data: { ...validatedFields },
+    });
+
+    revalidatePath(`/rentals/${propertyId}/edit`);
+    return { message: 'Update Successful' };
+  } catch (error) {
+    return renderError(error);
+  }
 };
 
 // 153. Fetch Rental Details Function
-export const updatePropertyImageAction = async () => {
-  return { message: 'update property image' };
+// 156. Update Rental Functions
+// createPropertyAction() と似たロジックを使います。
+export const updatePropertyImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const user = await getAuthUser();
+  const propertyId = formData.get('id') as string;
+
+  try {
+    const image: File = formData.get('image') as File;
+    const validatedFields: { image: File } = validateWithZodSchema(imageSchema, { image });
+    const fullPath = await uploadImage(validatedFields.image);
+
+    await db.property.update({
+      // TODO なぜ id: propertyId と profileId: user.id のどちらも必要?
+      where: { id: propertyId, profileId: user.id },
+      data: { image: fullPath },
+    });
+
+    return { message: 'update property image' };
+  } catch (error) {
+    return renderError(error);
+  }
 };

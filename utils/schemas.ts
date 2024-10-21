@@ -9,6 +9,7 @@ export const profileSchema = z.object({
 });
 
 // 79. ValidateWithZodSchema - Helper Function
+// TODO なぜ data: any ではなく data: unknown が使われているのか?
 export function validateWithZodSchema<T>(schema: ZodSchema<T>, data: unknown): T {
   const result = schema.safeParse(data);
 

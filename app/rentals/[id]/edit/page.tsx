@@ -10,12 +10,16 @@ import CountriesInput from '@/components/form/CountriesInput';
 import TextAreaInput from '@/components/form/TextAreaInput';
 import CounterInput from '@/components/form/CounterInput';
 import { SubmitButton } from '@/components/form/Buttons';
+import { Amenity } from '@/utils/amenities';
+import AmenitiesInput from '@/components/form/AmenitiesInput';
 
 // 154. Edit Rentals Page
+// 155. Amenities Input Gotcha
 
 const EditRentalPage = async ({ params }: { params: { id: string } }) => {
   const property = await fetchRentalDetails(params.id);
   if (!property) redirect('/');
+  const defaultAmenities: Amenity[] = JSON.parse(property.amenities);
 
   return (
     <section>
@@ -36,9 +40,11 @@ const EditRentalPage = async ({ params }: { params: { id: string } }) => {
           <TextAreaInput name={'description'} labelText={'Description (10-100 words)'} defaultValue={property.description} />
           <h3 className={'text-lg mt-8 mb-4 font-medium'}>Accommodation Details</h3>
           <CounterInput detail={'guests'} defaultValue={property.guests} />
-          <CounterInput detail={'guests'} defaultValue={property.bedrooms} />
-          <CounterInput detail={'guests'} defaultValue={property.beds} />
-          <CounterInput detail={'guests'} defaultValue={property.baths} />
+          <CounterInput detail={'bedrooms'} defaultValue={property.bedrooms} />
+          <CounterInput detail={'beds'} defaultValue={property.beds} />
+          <CounterInput detail={'baths'} defaultValue={property.baths} />
+          <h3 className={'text-lg mt-10 mb-6 font-medium'}>Amenities</h3>
+          <AmenitiesInput defaultValue={defaultAmenities} />
           <SubmitButton text={'edit property'} className={'mt-12'} />
         </FormContainer>
       </div>

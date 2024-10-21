@@ -24,7 +24,7 @@ const CounterInput = ({ detail, defaultValue }: Props) => {
   };
 
   return (
-    <Card className={'flex flex-col sm:flex-row justify-between items-center'}>
+    <Card className={'flex flex-col sm:flex-row justify-between items-center mt-2'}>
       {/* input */}
       <input type='hidden' name={detail} value={count} />
       <CardHeader>

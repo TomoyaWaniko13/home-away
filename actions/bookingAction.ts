@@ -9,9 +9,12 @@ import { revalidatePath } from 'next/cache';
 
 // 143. Confirm Booking Component
 // 144. Create Booking Action
+// 166. Stripe - Setup
 // データベース側で価格を取得するので、propertyId を渡します。
 export const createBookingAction = async (prevState: { propertyId: string; checkIn: Date; checkOut: Date }) => {
   const user = await getAuthUser();
+  let bookingId: null | string = null;
+
   // データベースから物件の価格を取得するために、propertyId が必要です。
   const { propertyId, checkIn, checkOut } = prevState;
 
@@ -29,10 +32,12 @@ export const createBookingAction = async (prevState: { propertyId: string; check
     const booking = await db.booking.create({
       data: { checkIn, checkOut, totalNights, orderTotal, profileId: user.id, propertyId },
     });
+
+    bookingId = booking.id;
   } catch (error) {
     return renderError(error);
   }
-  redirect('/bookings');
+  redirect(`/checkout?bookingId=${bookingId}`);
 };
 
 // 147. Fetch Bookings and Delete Booking

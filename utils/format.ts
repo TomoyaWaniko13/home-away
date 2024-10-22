@@ -17,6 +17,11 @@ export const formatQuantity = (quantity: number, noun: string): string => {
 };
 
 // 148. Bookings Page
-export const formatDate = (date: Date): string => {
-  return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+// 164. Admin Page - Fetch Chart Data
+export const formatDate = (date: Date, onlyMonth?: boolean): string => {
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long' };
+
+  if (!onlyMonth) options.day = 'numeric';
+
+  return new Intl.DateTimeFormat('en-US', options).format(date);
 };

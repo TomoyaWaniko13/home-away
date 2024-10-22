@@ -64,6 +64,7 @@ export const fetchPropertyDetails = async (id: string) => {
 };
 
 // 151. Fetch and Delete Rentals Functions
+// 170. Stripe - Refactor Queries
 // 現在のユーザーの rentals の情報を取得します。
 export const fetchRentals = async () => {
   const user = await getAuthUser();
@@ -81,7 +82,7 @@ export const fetchRentals = async () => {
       // この処理は、特定の物件（propertyId: rental.id）に関連するすべての予約の totalNights フィールドの合計を計算します。
       // aggregate と _sum を使用して、データベースレベルで効率的に合計を計算しています。
       const totalNightSum = await db.booking.aggregate({
-        where: { propertyId: rental.id },
+        where: { propertyId: rental.id, paymentStatus: true },
         _sum: { totalNights: true },
       });
 

@@ -13,17 +13,19 @@ const getAdminUser = async () => {
 };
 
 // 163. Admin Page - Stats Container
+// 170. Stripe - Refactor Queries
 export const fetchStats = async () => {
   await getAdminUser();
 
   const usersCount = await db.profile.count();
   const propertiesCount = await db.property.count();
-  const bookingsCount = await db.booking.count();
+  const bookingsCount = await db.booking.count({ where: { paymentStatus: true } });
 
   return { usersCount, propertiesCount, bookingsCount };
 };
 
 // 163. Admin Page - Stats Container
+// 170. Stripe - Refactor Queries
 export const fetchChartsData = async () => {
   await getAdminUser();
   const date = new Date();
@@ -31,7 +33,7 @@ export const fetchChartsData = async () => {
   const sixMonthsAgo = date;
 
   const bookings = await db.booking.findMany({
-    where: { createdAt: { gte: sixMonthsAgo } },
+    where: { paymentStatus: true, createdAt: { gte: sixMonthsAgo } },
     orderBy: { createdAt: 'asc' },
   });
 

@@ -10,9 +10,15 @@ import { revalidatePath } from 'next/cache';
 // 143. Confirm Booking Component
 // 144. Create Booking Action
 // 166. Stripe - Setup
+// 170. Stripe - Refactor Queries
 // データベース側で価格を取得するので、propertyId を渡します。
 export const createBookingAction = async (prevState: { propertyId: string; checkIn: Date; checkOut: Date }) => {
   const user = await getAuthUser();
+
+  await db.booking.deleteMany({
+    where: { profileId: user.id, paymentStatus: false },
+  });
+
   let bookingId: null | string = null;
 
   // データベースから物件の価格を取得するために、propertyId が必要です。
@@ -41,12 +47,13 @@ export const createBookingAction = async (prevState: { propertyId: string; check
 };
 
 // 147. Fetch Bookings and Delete Booking
+// 170. Stripe - Refactor Queries
 // 現在のユーザーの bookings を取得します。
 export const fetchBookings = async () => {
   const user = await getAuthUser();
 
   const bookings = await db.booking.findMany({
-    where: { profileId: user.id },
+    where: { profileId: user.id, paymentStatus: true },
     include: { property: { select: { id: true, name: true, country: true } } },
     orderBy: { createdAt: 'desc' },
   });
@@ -74,12 +81,13 @@ export const deleteBookingAction = async (prevState: { bookingId: string }) => {
 };
 
 // 158. Fetch Reservations
+// 170. Stripe - Refactor Queries
 // 現在のユーザーの properties に対しての bookings を 取得します。
 export const fetchReservations = async () => {
   const user = await getAuthUser();
 
   const reservations = await db.booking.findMany({
-    where: { property: { profileId: user.id } },
+    where: { paymentStatus: true, property: { profileId: user.id } },
     orderBy: { createdAt: 'desc' },
     include: { property: { select: { id: true, name: true, price: true, country: true } } },
   });

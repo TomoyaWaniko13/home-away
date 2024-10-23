@@ -2,10 +2,11 @@ import { Card, CardHeader } from '@/components/ui/card';
 
 // 160. Admin Page - Setup
 // 163. Admin Page - Stats Container
+// 171. Reservations Stats
 
 type Props = {
   title: string;
-  value: number;
+  value: number | string;
 };
 
 const StatsCard = ({ title, value }: Props) => {

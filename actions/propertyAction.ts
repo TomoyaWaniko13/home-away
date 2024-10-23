@@ -88,7 +88,7 @@ export const fetchRentals = async () => {
 
       // 同様に、特定の物件に関連するすべての予約の orderTotal フィールドの合計を計算します。
       const orderTotal = await db.booking.aggregate({
-        where: { propertyId: rental.id },
+        where: { propertyId: rental.id, paymentStatus: true },
         _sum: { orderTotal: true },
       });
 
